@@ -1,0 +1,152 @@
+modification :
+
+
+for database:
+1.need change price for every single hotel
+2.or else use cheapest price insted of price
+
+
+
+ui:
+1.need to be responsive and search container input field should be big
+
+ideas:
+1.implemented filter using min and max prices
+2.implement how many properties are there in each city (top cards)
+3.when i click on hotle then it should go to new page contain only hotels type is hotel
+
+todo:
+calculate the total price by using  rooms and adult and display
+
+
+
+hotels:
+https://images.pexels.com/photos/70441/pexels-photo-70441.jpeg?auto=compress&cs=tinysrgb&w=400
+
+resart:
+https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+https://cf.bstatic.com/xdata/images/hotel/max1024x768/222673017.jpg?k=f2634ac5ace7ac2c838528232617ba63b29f08fb27cd8154767a9fb654976ed7&o=&hp=1
+
+
+villa :
+https://images.pexels.com/photos/87378/pexels-photo-87378.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+
+apartments :
+https://images.pexels.com/photos/129494/pexels-photo-129494.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+
+
+cabins:
+https://images.pexels.com/photos/206648/pexels-photo-206648.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+https://images.pexels.com/photos/2832034/pexels-photo-2832034.jpeg?auto=compress&cs=tinysrgb&w=400
+
+apart hotel stare Miasto:
+https://images.pexels.com/photos/1838554/pexels-photo-1838554.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+
+comfort suites Airport:
+https://images.pexels.com/photos/4152233/pexels-photo-4152233.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+https://images.pexels.com/photos/261169/pexels-photo-261169.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+
+
+
+all the five images of a specified selected hotel
+
+[
+    
+    "https://cf.bstatic.com/xdata/images/hotel/max1280x900/261707778.jpg?k=56ba0babbcbbfeb3d3e911728831dcbc390ed2cb16c51d88159f82bf751d04c6&o=&hp=1",
+    "https://cf.bstatic.com/xdata/images/hotel/max1280x900/261707367.jpg?k=cbacfdeb8404af56a1a94812575d96f6b80f6740fd491d02c6fc3912a16d8757&o=&hp=1",
+    "https://cf.bstatic.com/xdata/images/hotel/max1280x900/261708745.jpg?k=1aae4678d645c63e0d90cdae8127b15f1e3232d4739bdf387a6578dc3b14bdfd&o=&hp=1",
+    "https://cf.bstatic.com/xdata/images/hotel/max1280x900/261707776.jpg?k=054bb3e27c9e58d3bb1110349eb5e6e24dacd53fbb0316b9e2519b2bf3c520ae&o=&hp=1",
+    "https://cf.bstatic.com/xdata/images/hotel/max1280x900/261708693.jpg?k=ea210b4fa329fe302eab55dd9818c0571afba2abd2225ca3a36457f9afa74e94&o=&hp=1",
+    "https://cf.bstatic.com/xdata/images/hotel/max1280x900/261707389.jpg?k=52156673f9eb6d5d99d3eed9386491a0465ce6f3b995f005ac71abc192dd5827&o=&hp=1",
+    
+  ];
+
+
+  hotel description 
+vizag:
+  Featuring 3-star accommodation ,Entire Studio. 1 bathroom . 21m2 full bed , Hotel Name at  Rk Beach is situated in visakhapatnam 10 km from Airport and 7 km from Bus stand
+
+Hyd:
+      Featuring 3-star accommodation,Entire Studio. 1 bathroom . 21m2 full bed , Hotel Name at  Hitech city is situated in Hyderabad 20 km from international Airport and 2 km from T-hub 
+
+Delhi :
+  Featuring 3-star accommodation,Entire Studio. 1 bathroom . 21m2 full bed , Hotel Name at  parlament Bhavan is situated in Delhi 10 km from Airport and 0.5 km from parlament
+
+address:
+vizag :31-32-40,Near Jyothi Theater Ladies Gate,Dhabagardens,530020,visakhapatnam,india
+hyd:ReddyFormHouse,sidloor Near Manneguda,501102 ,Hyderabad,india
+delhi:1/49 ,Llita Park ,Main vikas marg(Next to Laxmi Nagar Metro Station),110092 New Delhi,India
+
+
+
+//image sets 
+
+
+hotel:
+set1:
+"https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+"https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+"https://images.pexels.com/photos/1838554/pexels-photo-1838554.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+"https://images.pexels.com/photos/189333/pexels-photo-189333.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+"https://images.pexels.com/photos/1579253/pexels-photo-1579253.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+"https://images.pexels.com/photos/1457847/pexels-photo-1457847.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+
+
+set2:
+"https://cf.bstatic.com/xdata/images/hotel/max1280x900/261707778.jpg?k=56ba0babbcbbfeb3d3e911728831dcbc390ed2cb16c51d88159f82bf751d04c6&o=&hp=1",
+"https://cf.bstatic.com/xdata/images/hotel/max1280x900/261707367.jpg?k=cbacfdeb8404af56a1a94812575d96f6b80f6740fd491d02c6fc3912a16d8757&o=&hp=1",
+"https://cf.bstatic.com/xdata/images/hotel/max1280x900/261708745.jpg?k=1aae4678d645c63e0d90cdae8127b15f1e3232d4739bdf387a6578dc3b14bdfd&o=&hp=1",
+"https://cf.bstatic.com/xdata/images/hotel/max1280x900/261707776.jpg?k=054bb3e27c9e58d3bb1110349eb5e6e24dacd53fbb0316b9e2519b2bf3c520ae&o=&hp=1",
+"https://cf.bstatic.com/xdata/images/hotel/max1280x900/261708693.jpg?k=ea210b4fa329fe302eab55dd9818c0571afba2abd2225ca3a36457f9afa74e94&o=&hp=1",
+"https://cf.bstatic.com/xdata/images/hotel/max1280x900/261707389.jpg?k=52156673f9eb6d5d99d3eed9386491a0465ce6f3b995f005ac71abc192dd5827&o=&hp=1",
+   
+set3:
+"https://images.pexels.com/photos/1743229/pexels-photo-1743229.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+"https://images.pexels.com/photos/827528/pexels-photo-827528.jpeg?auto=compress&cs=tinysrgb&w=600",
+"https://images.pexels.com/photos/276583/pexels-photo-276583.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+"https://images.pexels.com/photos/2263510/pexels-photo-2263510.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+"https://images.pexels.com/photos/4112236/pexels-photo-4112236.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+"https://images.pexels.com/photos/3315291/pexels-photo-3315291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+
+
+
+appartment set:
+
+1.hall
+2.masterbed room
+3.children bed room
+4.swimming 
+5.kitchen
+6.washroom
+" https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+"https://images.pexels.com/photos/2631746/pexels-photo-2631746.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+"https://images.pexels.com/photos/16648042/pexels-photo-16648042/free-photo-of-modern-bedroom-for-a-girl.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+"https://images.pexels.com/photos/1827354/pexels-photo-1827354.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+"https://images.pexels.com/photos/3016430/pexels-photo-3016430.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+"https://images.pexels.com/photos/6585758/pexels-photo-6585758.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+
+
+hotel set:
+
+1.bed room
+2.balcoy
+3.shower
+4.gym
+5.common swinng pool
+6.playing
+
+
+"https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+"https://images.pexels.com/photos/3225561/pexels-photo-3225561.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+"https://images.pexels.com/photos/2034335/pexels-photo-2034335.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+"https://images.pexels.com/photos/1472887/pexels-photo-1472887.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+"https://images.pexels.com/photos/1144864/pexels-photo-1144864.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+"https://images.pexels.com/photos/6585604/pexels-photo-6585604.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+
+
+
+responsive pending 
+
+1.home page search box styling
+2.navbar and header spacing is heavy
+3.popup image is pending
