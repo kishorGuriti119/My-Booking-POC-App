@@ -144,6 +144,7 @@ function Footer() {
             </a>
           </div>
         </span>
+        <p>dummy text</p>
       </Container>
     </>
   );
