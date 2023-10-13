@@ -6,6 +6,8 @@ import "./style.css";
 
 function CompletedBookings(props) {
   let { completedBookingsData } = props;
+  console.log(completedBookingsData, "completed");
+
   let loginUser = JSON.parse(localStorage.getItem("loggedUser"));
   const [dataTomap, setDataToMap] = useState(completedBookingsData);
   const [showMoreButton, setShowMoreButton] = useState(true);

@@ -54,7 +54,6 @@ function UserFavorites() {
   };
 
   const getUserFavHotels = async (favHotelIDsArray) => {
-    // console.log(favHotelIDsArray, "favhotel ids");
     let userFav = [];
     await Promise.all(
       favHotelIDsArray.map(async (id) => {
@@ -69,7 +68,6 @@ function UserFavorites() {
       })
     );
 
-    // console.log(userFav, "usrfavhotels all");
     return userFav;
   };
 
