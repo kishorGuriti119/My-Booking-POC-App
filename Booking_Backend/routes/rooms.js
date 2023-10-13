@@ -14,6 +14,7 @@ const {
   bookRoom,
   accessingRoom,
   sendEmail,
+  cancelRoom,
 } = require("../controllers/room");
 
 // router.use(authController.authenticate);
@@ -27,5 +28,6 @@ router.put("/addroom", dummyRoute);
 router.delete("/deleteroom/:id", dummyDelete);
 router.put("/book/:hotelid", bookRoom);
 router.post("/book/email", sendEmail);
+router.put("/cancel", cancelRoom);
 
 module.exports = router;

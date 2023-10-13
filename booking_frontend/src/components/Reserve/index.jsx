@@ -602,7 +602,7 @@ function Reserve({
                       <Row>
                         {room.roomNumbers.map((each) => {
                           return (
-                            <Col xs={2} md={1}>
+                            <Col xs={2} md={1} key={each._id}>
                               <div className="d-flex flex-column align-ceneter">
                                 <span
                                   style={{

@@ -6,6 +6,7 @@ import "./style.css";
 
 function UpComingBookings(props) {
   let { upcomingBookingsData } = props;
+  console.log(upcomingBookingsData, "upcoming");
   let loginUser = JSON.parse(localStorage.getItem("loggedUser"));
 
   const [dataTomap, setDataToMap] = useState(upcomingBookingsData);
@@ -47,14 +48,14 @@ function UpComingBookings(props) {
   };
 
   const cancelBooking = (hotel) => {
-    //   this backend is pending
-    console.log(hotel, "cancel details");
+    console.log({ ...hotel, userId: loginUser._id }, "cancel details");
+    let bookingDetails = { ...hotel, userId: loginUser._id };
     fetch(`http://localhost:3001/rooms/cancel`, {
       method: "put",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify({ hotel }),
+      body: JSON.stringify(bookingDetails),
     })
       .then((res) => {
         return res.json();

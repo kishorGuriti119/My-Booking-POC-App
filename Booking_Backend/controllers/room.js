@@ -2,12 +2,14 @@ var RoomsModel = require("../models/room");
 var HotelModel = require("../models/hotel");
 const { ClientSession } = require("mongodb");
 var nodemailer = require("nodemailer");
+const { ObjectId } = require("mongodb");
+const UserModel = require("../models/users");
 
 const CreateNewRoom = async (req, res, next) => {
   const roomdetails = req.body;
   const room = new RoomsModel(roomdetails);
 
-  const hotelId = req.params.hotelid; // this room will be added to the hotel which have id (hotelid)
+  const hotelId = req.params.hotelid;
 
   try {
     const savedRoom = await room.save();
@@ -15,7 +17,7 @@ const CreateNewRoom = async (req, res, next) => {
 
     try {
       await HotelModel.findByIdAndUpdate(hotelId, {
-        $push: { rooms: savedRoom._id }, // this push method will be add the id to the rooms array
+        $push: { rooms: savedRoom._id },
       });
     } catch (err) {
       next(err);
@@ -42,8 +44,6 @@ const updateRoom = async (req, res, next) => {
       })
     );
 
-    // console.log(room, "thisw is room");
-
     if (!room) {
       return res.send("Room Not found");
     }
@@ -62,7 +62,6 @@ const AllRoomsInHotel = async (req, res, next) => {
 
   try {
     let hotel = await HotelModel.findById(hotlId);
-    // console.log(hotel, "the");
 
     let allRooms = await Promise.all(
       hotel.rooms.map((each) => {
@@ -74,17 +73,6 @@ const AllRoomsInHotel = async (req, res, next) => {
     next(err);
   }
 };
-
-// const singleRoom = async (req, res, next) => {
-//   let id = req.params.id;
-
-//   try {
-//     let singleroom = await RoomsModel.findById(id);
-//     return res.status(200).send(singleroom);
-//   } catch (err) {
-//     next(err);
-//   }
-// };
 
 const singleRoom = async function (req, res, next) {
   let roomId = req.params.roomid;
@@ -132,8 +120,6 @@ const DeleteRoom = async (req, res, next) => {
 };
 
 const dummyRoute = async (req, res, next) => {
-  // let hotelId = req.params.hotelid;
-
   try {
     let roomdetails = new RoomsModel(req.body);
     await roomdetails.save();
@@ -176,60 +162,6 @@ const dummyDelete = async (req, res, next) => {
   }
 };
 
-// const bookRoom = async (req, res, next) => {
-//   let body = req.body;
-//   let hotelId = req.params.hotelid;
-//   let roomId = req.query.roomid;
-//   let selectedDates = req.body.selectedDates;
-//   try {
-//     let hotel = await HotelModel.findById(hotelId);
-
-//     if (hotel.length === 0) {
-//       return res.send({ result: "hotel not found" });
-//     } else {
-//       let categoryRooms = await Promise.all(
-//         hotel.rooms.map(async (catRoomId) => {
-//           return await RoomsModel.findById(catRoomId);
-//         })
-//       );
-
-//       if (categoryRooms.length === 0) {
-//         return res.send({ result: "Room was not Found" });
-//       } else {
-//         let selectedIndividualRoom = await Promise.all(
-//           categoryRooms.map((eachcatroom) => {
-//             return eachcatroom.roomNumbers.filter((eachIndRoom) => {
-//               return eachIndRoom._id.toString() === roomId;
-//             });
-//           })
-//         );
-
-//         selectedIndividualRoom = selectedIndividualRoom.filter((each) => {
-//           return each.length !== 0;
-//         });
-//         console.log(selectedIndividualRoom[0][0], "244"); // correct
-
-//         let updatedRoom = await RoomsModel.updateOne(
-//           { "roomNumbers._id": roomId },
-//           {
-//             $addToSet: {
-//               "roomNumbers.$.unavailableDates": { $each: selectedDates },
-//             },
-//           }
-//           // {
-//           //   $set: { "roomNumbers.$.unavailableDates": [] }, //set is to update  push is to push thr data // addToset is push date only it doesnot exist in the array
-//           // }
-//         );
-//         await hotel.save();
-//         return res.send(updatedRoom);
-//       }
-//     }
-//   } catch (err) {
-//     console.log(err);
-//     next(err);
-//   }
-// };
-
 const bookRoom = async (req, res, next) => {
   let body = req.body;
   let hotelId = req.params.hotelid;
@@ -264,7 +196,6 @@ const bookRoom = async (req, res, next) => {
         selectedIndividualRoom = selectedIndividualRoom.filter((each) => {
           return each.length !== 0;
         });
-        console.log(selectedIndividualRoom[0][0], "244"); // correct
 
         let updatedRoomdata = await RoomsModel.updateOne(
           { "roomNumbers._id": roomId },
@@ -304,28 +235,6 @@ const sendEmail = async (req, res, next) => {
       },
     });
 
-    // var mailOptions = {
-    //   from: "kishorguriti119@gmail.com",
-    //   to: "kishorguriti119@gmail.com",
-    //   subject: "Booking Succussfull",
-    //   text: "emailfunctionality checking",
-    //   html: `<h1>${hotelDetails.name}<h1>
-    //         <p>dates from :${userBookingdetails.unavailableDates[0]} to: ${
-    //     userBookingdetails.unavailableDates[
-    //       userBookingdetails.unavailableDates.length - 1
-    //     ]
-    //   }
-    //     </p>
-    //          <p>room number :${userBookingdetails.number}<p/>
-    //     <button onclick="myFunction()">alert<button>
-    //     <script>
-    //     function myFunction() {
-    //       // Your JavaScript functionality here
-    //       alert('Button clicked!');
-    //     }
-    //   </script>
-    //     `,
-    // };
     var mailOptions = {
       from: "kishorguriti119@gmail.com",
       to: "kishorguriti119@gmail.com",
@@ -362,6 +271,62 @@ const sendEmail = async (req, res, next) => {
   }
 };
 
+const cancelRoom = async (req, res, next) => {
+  try {
+    let hotel = await HotelModel.findById(req.body.hotelId);
+
+    if (!hotel) {
+      return res.send("no hotel found");
+    }
+
+    let allRooms = await Promise.all(
+      hotel.rooms.map(async (roomid) => {
+        return await RoomsModel.findById(roomid);
+      })
+    );
+
+    let updatedRoomsAfterCancell = await RoomsModel.findOneAndUpdate(
+      {
+        "roomNumbers._id": req.body._id,
+      },
+      {
+        $pull: {
+          "roomNumbers.$.unavailableDates": {
+            $in: req.body.unavailableDates,
+          },
+        },
+      }
+    );
+
+    let updateduser = await UserModel.findById(req.body.userId);
+
+    if (!updateduser) {
+      return res.send(" user not exist ");
+    }
+
+    let bookingToBeCancell = await updateduser.BookingDetails.find(
+      (obj) => obj._id === req.body._id
+    );
+
+    let updateduserBookings = updateduser.BookingDetails.filter((each) => {
+      return each !== bookingToBeCancell;
+    });
+
+    let allUsersAfterUpdate = await UserModel.findByIdAndUpdate(
+      req.body.userId,
+      { BookingDetails: updateduserBookings }
+    );
+
+    await allUsersAfterUpdate.save();
+    console.log(bookingToBeCancell, "413");
+    await hotel.save();
+    return res.send({ result: "succuss" });
+  } catch (err) {
+    console.log(err);
+    return res.send(err);
+  }
+};
+
 module.exports = {
   CreateNewRoom,
   updateRoom,
@@ -372,4 +337,5 @@ module.exports = {
   dummyDelete,
   bookRoom,
   sendEmail,
+  cancelRoom,
 };
