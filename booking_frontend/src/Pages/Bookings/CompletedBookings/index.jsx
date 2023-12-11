@@ -63,6 +63,17 @@ function CompletedBookings(props) {
     navigatesTo(`/Booking.com`);
   };
 
+  const giveFeedback = (each) => {
+    console.log(each, "clicked on feed back");
+
+    let bookingObj = {
+      _id: each._id,
+      number: each.number,
+      unavailableDates: each.unavailableDates,
+    };
+    console.log(bookingObj);
+  };
+
   return (
     <>
       <Container>
@@ -155,7 +166,12 @@ function CompletedBookings(props) {
                       </div>
                     </div>
                     <div className="buttons_container">
-                      <button className="card_button feedback">feedback</button>
+                      <button
+                        className="card_button feedback"
+                        onClick={() => giveFeedback(eachHotel)}
+                      >
+                        feedback
+                      </button>
                       <button
                         className="card_button view_details"
                         onClick={() => navigatesToHotel(eachHotel)}

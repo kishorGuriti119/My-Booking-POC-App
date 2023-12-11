@@ -93,8 +93,8 @@ const Bookings = () => {
 
   useEffect(() => {
     fetch(`http://localhost:3001/users/${loginUser._id}`)
-      .then((res) => {
-        return res.json();
+      .then(async (res) => {
+        return await res.json();
       })
       .then(async (res) => {
         let hotels = await GetAllHotel(res);

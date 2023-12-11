@@ -9,6 +9,7 @@ import "./style.css";
 import Login from "../../Pages/Login";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, Zoom, toast } from "react-toastify";
 
 function MyNavbar({ type }) {
   const [modalShow, setModalShow] = React.useState(false);
@@ -26,6 +27,62 @@ function MyNavbar({ type }) {
     localStorage.removeItem("loggedUser");
     setDummyState("userloggedout");
     navigate("/Booking.com");
+  };
+
+  const notify = (message, result) => {
+    switch (result) {
+      case "succuss":
+        toast.success(message, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        break;
+
+      case "fail":
+        toast.error(message, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        break;
+      case "room not selected": {
+        toast.warn(message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Zoom,
+        });
+        break;
+      }
+
+      default:
+        toast.success(message, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+    }
   };
 
   return (
@@ -73,8 +130,24 @@ function MyNavbar({ type }) {
           )}
         </Navbar.Collapse>
       </Container>
+      <ToastContainer
+        position="top-right"
+        autoClose={6000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       {modalShow && (
-        <Login show={modalShow} onHide={() => setModalShow(false)} />
+        <Login
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          notification={notify}
+        />
       )}
     </Navbar>
   );

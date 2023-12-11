@@ -2,6 +2,7 @@ const userModel = require("../models/users");
 const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
 const { promisify } = require("util");
+const UserModel = require("../models/users");
 
 const saltRounds = 10;
 let bodywithHashedPasw;
@@ -11,11 +12,18 @@ let bodywithHashedPasw;
 const createUser = async (req, res, next) => {
   let body = req.body;
 
-  let user = body.username;
+  let validatingUsername = await userModel.find({ username: body.username });
 
-  let x = await userModel.find({ username: body.username });
-  if (x.length !== 0) {
-    return res.send({ result: "user already existed" });
+  if (validatingUsername.length !== 0) {
+    next({ message: "Username Already Exist" });
+    return;
+  }
+
+  let validatingEmail = await userModel.find({ email: body.email });
+
+  if (validatingEmail.length !== 0) {
+    next({ message: "Email Already Exist" });
+    return;
   }
 
   try {
@@ -117,46 +125,72 @@ const deleteUser = async function (req, res, next) {
 
 // login verification
 
+// const UserLogin = async function (req, res, next) {
+//   let body = req.body;
+
+//   try {
+//     let user = await userModel.find({
+//       username: body.username,
+//     });
+
+//     console.log(user, "logged user");
+//     if (!user) {
+//       let error = {
+//         status: 401,
+//         message: "User Not Exist",
+//       };
+//       next(error);
+
+//       return res.status(401).send("user not found");
+//     }
+
+//     const isPassword = await bcrypt.compare(body.password, user[0].password);
+//     console.log(isPassword);
+
+//     if (!isPassword) {
+//       return res.send({ err: "incorrect password" });
+//     }
+
+//     const token = jwt.sign(
+//       { id: user[0]._id, isAdmin: user[0].isAdmin },
+//       "kishor"
+//     );
+
+//     console.log(token, "this is token");
+
+//     const { password, isAdmin, ...otherdetails } = user[0]._doc;
+
+//     return res
+//       .cookie("access_token", token, { httpOnly: true })
+//       .status(200)
+//       .send({ ...otherdetails });
+//   } catch (err) {
+//     return res.send({ err: "this is error catch" });
+//   }
+// };
+
 const UserLogin = async function (req, res, next) {
   let body = req.body;
-  console.log(body.username);
-
   try {
-    let user = await userModel.find({
-      username: body.username,
-      // email: body.username,
-    }); // which gives array of objects
-    console.log(user, "user details");
-    if (!user) {
-      return res.send("user not found");
-      // next("user not found");
-      // return res.send("user not found");
+    let user = await UserModel.find({ username: body.username });
+
+    if (user.length === 0) {
+      next({ status: 401, message: "user not found" });
+      return;
     }
-
-    const isPassword = await bcrypt.compare(body.password, user[0].password);
-    console.log(isPassword);
-
-    if (!isPassword) {
-      //return next("incorrect password");
-      return res.send({ err: "incorrect password" });
-    }
-
-    const token = jwt.sign(
-      { id: user[0]._id, isAdmin: user[0].isAdmin },
-      "kishor"
+    const isPasswordVerified = await bcrypt.compare(
+      body.password,
+      user[0].password
     );
 
-    console.log(token, "this is token");
+    if (!isPasswordVerified) {
+      next({ status: 401, message: "Invalid Password" });
+      return;
+    }
 
-    const { password, isAdmin, ...otherdetails } = user[0]._doc;
-
-    return res
-      .cookie("access_token", token, { httpOnly: true })
-      .status(200)
-      .send({ ...otherdetails });
-  } catch (err) {
-    // next(err);
-    return res.send({ err: "this is error catch" });
+    return res.status(200).send({ user });
+  } catch (error) {
+    next(error);
   }
 };
 

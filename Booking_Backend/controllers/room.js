@@ -1,8 +1,6 @@
 var RoomsModel = require("../models/room");
 var HotelModel = require("../models/hotel");
-const { ClientSession } = require("mongodb");
 var nodemailer = require("nodemailer");
-const { ObjectId } = require("mongodb");
 const UserModel = require("../models/users");
 
 const CreateNewRoom = async (req, res, next) => {
@@ -272,19 +270,30 @@ const sendEmail = async (req, res, next) => {
 };
 
 const cancelRoom = async (req, res, next) => {
+  // let bookingObj = {
+  //   _id: req.body._id,
+  //   number: req.body.number,
+  //   unavailableDates: req.body.unavailableDates,
+  // };
+  // console.log(bookingObj, "278");
+
+  const bookingobj = {
+    number: 101,
+    unavailableDates: ["19/10/2023", "20/10/2023", "21/10/2023"],
+    _id: "652cdb2b8a0d44037a011332",
+    hotelId: "64a28da8876f1254391f58d9",
+  };
+  console.log(bookingobj, "286");
   try {
     let hotel = await HotelModel.findById(req.body.hotelId);
-
     if (!hotel) {
       return res.send("no hotel found");
     }
-
     let allRooms = await Promise.all(
       hotel.rooms.map(async (roomid) => {
         return await RoomsModel.findById(roomid);
       })
     );
-
     let updatedRoomsAfterCancell = await RoomsModel.findOneAndUpdate(
       {
         "roomNumbers._id": req.body._id,
@@ -297,28 +306,26 @@ const cancelRoom = async (req, res, next) => {
         },
       }
     );
-
     let updateduser = await UserModel.findById(req.body.userId);
-
     if (!updateduser) {
       return res.send(" user not exist ");
     }
-
-    let bookingToBeCancell = await updateduser.BookingDetails.find(
-      (obj) => obj._id === req.body._id
-    );
-
+    // let bookingToBeCancell = await updateduser.BookingDetails.find(
+    //   (obj) => obj._id === req.body._id
+    // );
     let updateduserBookings = updateduser.BookingDetails.filter((each) => {
-      return each !== bookingToBeCancell;
+      // console.log(each, "310");
+      return each !== bookingobj;
     });
+
+    console.log(updateduserBookings, "321");
 
     let allUsersAfterUpdate = await UserModel.findByIdAndUpdate(
       req.body.userId,
       { BookingDetails: updateduserBookings }
     );
-
     await allUsersAfterUpdate.save();
-    console.log(bookingToBeCancell, "413");
+    // console.log(bookingToBeCancell, "413");
     await hotel.save();
     return res.send({ result: "succuss" });
   } catch (err) {

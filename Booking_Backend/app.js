@@ -45,9 +45,7 @@ app.use("/rooms", roomsRouter);
 app.use((err, req, res, next) => {
   let errorStatus = err.status || 500;
   let errorMessage = err.message || "something went wrong";
-  return res
-    .status(500)
-    .send({ error: errorMessage || "this is next  middleware" });
+  return res.status(errorStatus).send({ Error: errorMessage });
 });
 
 // catch 404 and forward to error handler

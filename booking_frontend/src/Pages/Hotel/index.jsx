@@ -261,7 +261,7 @@ function Hotel() {
           width="24"
           height="24"
           fill="currentColor"
-          class="bi bi-arrow-left"
+          className="bi bi-arrow-left"
           viewBox="0 0 16 16"
           style={{ stroke: "blue" }}
         >
@@ -324,7 +324,7 @@ function Hotel() {
               ) : (
                 hotelPhotos.map((each, index) => {
                   return (
-                    <Col xs={4}>
+                    <Col xs={4} key={each}>
                       <img
                         style={{ cursor: "pointer" }}
                         className="images_style "
@@ -412,7 +412,11 @@ function Hotel() {
         </Container>
       </div>
       {openLoginCom ? (
-        <Login show={modalShow} onHide={() => setModalShow(false)} />
+        <Login
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          notification={notify}
+        />
       ) : (
         ""
       )}

@@ -48,6 +48,12 @@ function UpComingBookings(props) {
   };
 
   const cancelBooking = (hotel) => {
+    // let bookingObj = {
+    //   _id: hotel._id,
+    //   number: hotel.number,
+    //   unavailableDates: hotel.unavailableDates,
+    // };
+    // console.log(bookingObj);
     console.log({ ...hotel, userId: loginUser._id }, "cancel details");
     let bookingDetails = { ...hotel, userId: loginUser._id };
     fetch(`http://localhost:3001/rooms/cancel`, {

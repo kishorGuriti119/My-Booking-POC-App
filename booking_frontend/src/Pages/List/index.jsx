@@ -77,7 +77,7 @@ function List() {
 
     let pricePerNight = each.price || each.cheapestPrice;
     navigatesTo(
-      `/Booking.com/hotel/${each.name}/${
+      `/Booking.com/hotel/${each.name.replaceAll(" ", "-")}/${
         each._id
       }?searchresults.en-gb.html=""&city=${each.city.toLowerCase()}&type=${
         each.type
