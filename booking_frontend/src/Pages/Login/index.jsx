@@ -4,6 +4,9 @@ import { Button, Container, Row, Col } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import { ToastContainer, toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import {faEye,faEyeSlash,} from "@fortawesome/free-solid-svg-icons";
 import { useFormik } from "formik";
 import { ValidateLogin, ValidateRegister } from "../../Validations/validations";
 import "./style.css";
@@ -11,6 +14,7 @@ import "./style.css";
 function Login(props) {
   const [openReg, setOpenReg] = useState(false);
   const [regResponse, setRegResponse] = useState("");
+  const [hidePassword, setHidePassword] = useState(true);
 
   const Loginformik = useFormik({
     initialValues: {
@@ -136,13 +140,29 @@ function Login(props) {
                   <Form.Floating>
                     <Form.Control
                       id="floatingPasswordCustom"
-                      type="password"
+                      type={hidePassword ? "password" : "text"}
                       placeholder="Password"
                       name="password"
                       onChange={Loginformik.handleChange("password")}
                       value={Loginformik.values.password}
                     />
                     <label htmlFor="floatingPasswordCustom">Password</label>
+                    <div
+                      style={{
+                        position: "absolute",
+                        right: "1rem",
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => setHidePassword(!hidePassword)}
+                    >
+                      {hidePassword ? (
+                        <FontAwesomeIcon icon={faEyeSlash} />
+                      ) : (
+                        <FontAwesomeIcon icon={faEye} />
+                      )}
+                    </div>
                     <Form.Text>
                       {Loginformik.touched.password &&
                       Loginformik.errors.password ? (
@@ -206,11 +226,27 @@ function Login(props) {
                   </FloatingLabel>
                   <FloatingLabel controlId="floatingPassword" label="Password">
                     <Form.Control
-                      type="password"
+                      type={hidePassword ? "password" : "text"}
                       placeholder="Password"
                       name="password"
                       onChange={RegisterFormik.handleChange("password")}
                     />
+                    <div
+                      style={{
+                        position: "absolute",
+                        right: "1rem",
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => setHidePassword(!hidePassword)}
+                    >
+                      {hidePassword ? (
+                        <FontAwesomeIcon icon={faEyeSlash} />
+                      ) : (
+                        <FontAwesomeIcon icon={faEye} />
+                      )}
+                    </div>
                     <Form.Text>
                       {RegisterFormik.touched.password &&
                       RegisterFormik.errors.password ? (
@@ -232,7 +268,7 @@ function Login(props) {
                   <Button onClick={Loginformik.handleSubmit}>Login</Button>
                   <span
                     className="text-success"
-                    onClick={() => setOpenReg(true)}
+                    onClick={() => [setOpenReg(true), setHidePassword(true)]}
                   >
                     Register
                   </span>
@@ -249,7 +285,7 @@ function Login(props) {
                   </Button>
                   <span
                     className="text-primary"
-                    onClick={() => setOpenReg(false)}
+                    onClick={() => [setOpenReg(false), setHidePassword(true)]}
                   >
                     Already have Account?
                   </span>

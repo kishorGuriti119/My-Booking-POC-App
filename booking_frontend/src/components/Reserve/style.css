@@ -19,7 +19,6 @@
 .rooms_Container {
   overflow-y: scroll;
   height: 37vh;
-  
 }
 
 .room-details_container {
@@ -80,14 +79,24 @@
   width: max-content;
   margin-left: 20%;
 }
-
+.form-check-input {
+  width: 20px !important ;
+  height: 20px !important;
+}
 .form-check-input:checked[type="checkbox"] {
-  --bs-form-check-bg-image: url("") !important;
+  --bs-form-check-bg-image: url("https://cdn.worldvectorlogo.com/logos/bookingcom-1.svg") !important;
 }
 
 .form-check-input:checked {
   background-color: #003580 !important;
   border-color: #003580 !important;
+}
+
+.checkbox-style {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 /*----------------------------------------------  After modification ----------------------*/
@@ -173,17 +182,16 @@
   }
 }
 
-
 @media (min-width: 2000px) {
-    .reservComponent {
-      background-color: white;
-      position: absolute;
-      top: 30%;
-      left: 30%;
-      width: 40vw !important;
-      height: max-content;
-      bottom: 50%;
-      padding: 40px !important;
-      box-shadow: 0 0 10px grey;
-    }
+  .reservComponent {
+    background-color: white;
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    width: 40vw !important;
+    height: max-content;
+    bottom: 50%;
+    padding: 40px !important;
+    box-shadow: 0 0 10px grey;
   }
+}
