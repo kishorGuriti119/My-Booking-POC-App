@@ -13,6 +13,7 @@ import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReactLoading from "react-loading";
 import { useSearchParams } from "react-router-dom";
+import CustomGooglMaps from "../../components/GoogleMap";
 
 function List() {
   let loaderType = "spin";
@@ -160,131 +161,141 @@ function List() {
       <Header type="list" />
       <Container className="mycontainer">
         <Row>
-          <Col sm={12} md={4} lg={3} className="search_Container mt-3">
-            <h4>Search</h4>
-            <div>
-              <p style={{ margin: "2px", marginTop: "15px" }}>Destination</p>
-              <input
-                style={{
-                  outline: "none",
-                  width: "99%",
-                  paddingLeft: "10px",
-                  fontWeight: "bold",
-                }}
-                placeholder={destination}
-                onChange={(e) => setDestination(e.target.value)}
-                value={destination}
-              />
-            </div>
-
-            <div>
-              <p style={{ margin: "2px", marginTop: "15px" }}>check-in-Date</p>
-              <input
-                style={{
-                  outline: "none",
-                  marginTop: "0px",
-                  paddingLeft: "10px",
-                  fontWeight: "bold",
-                  width: "99%",
-                }}
-                onClick={() => setShowCalender(!showCalender)}
-                onChange={(item) => changeDate(item)}
-                placeholder={`${format(
-                  date[0].startDate,
-                  "dd/MM/yyyy"
-                )} to ${format(date[0].endDate, "dd/MM/yyyy")}`}
-                value={`${format(date[0].startDate, "dd/MM/yyyy")} to ${format(
-                  date[0].endDate,
-                  "dd/MM/yyyy"
-                )}`}
-              />
-            </div>
-            {showCalender && (
-              <DateRange
-                editableDateInputs={true}
-                onChange={(item) => changeDate(item)}
-                moveRangeOnFirstSelection={false}
-                ranges={date}
-                minDate={new Date()}
-                style={{ width: "99%" }}
-              />
-            )}
-            <div className="mt-4">
-              <h6>options</h6>
-              <div className="options_Container">
-                <div className="d-flex justify-content-between mt-3">
-                  <p className="optionPara">Min Price (per night)</p>
+          <Col sm={12} md={4} lg={3}>
+            <Row>
+              <Col sm={12} className="search_Container mt-3">
+                <h4>Search</h4>
+                <div>
+                  <p style={{ margin: "2px", marginTop: "15px" }}>
+                    Destination
+                  </p>
                   <input
-                    type="number"
-                    className="option_input"
-                    value={minPrice}
-                    onChange={(e) => setMinPrice(e.target.value)}
+                    style={{
+                      outline: "none",
+                      width: "99%",
+                      paddingLeft: "10px",
+                      fontWeight: "bold",
+                    }}
+                    placeholder={destination}
+                    onChange={(e) => setDestination(e.target.value)}
+                    value={destination}
                   />
                 </div>
-                <div className="d-flex justify-content-between mt-2">
-                  <p className="optionPara">Max Price (per night)</p>
+                <div>
+                  <p style={{ margin: "2px", marginTop: "15px" }}>
+                    check-in-Date
+                  </p>
                   <input
-                    type="number"
-                    className="option_input"
-                    value={maxPrice}
-                    onChange={(e) => setMaxPrice(e.target.value)}
+                    style={{
+                      outline: "none",
+                      marginTop: "0px",
+                      paddingLeft: "10px",
+                      fontWeight: "bold",
+                      width: "99%",
+                    }}
+                    onClick={() => setShowCalender(!showCalender)}
+                    onChange={(item) => changeDate(item)}
+                    placeholder={`${format(
+                      date[0].startDate,
+                      "dd/MM/yyyy"
+                    )} to ${format(date[0].endDate, "dd/MM/yyyy")}`}
+                    value={`${format(
+                      date[0].startDate,
+                      "dd/MM/yyyy"
+                    )} to ${format(date[0].endDate, "dd/MM/yyyy")}`}
                   />
                 </div>
-                <div className="d-flex justify-content-between mt-2">
-                  <p className="optionPara">Adult</p>
-                  <input
-                    type="number"
-                    min={1}
-                    className="option_input"
-                    placeholder={people.adult}
-                    onChange={(e) =>
-                      setPeople({ ...people, adult: e.target.value })
-                    }
-                    value={people.adult}
+                {showCalender && (
+                  <DateRange
+                    editableDateInputs={true}
+                    onChange={(item) => changeDate(item)}
+                    moveRangeOnFirstSelection={false}
+                    ranges={date}
+                    minDate={new Date()}
+                    style={{ width: "99%" }}
                   />
-                </div>
-                <div className="d-flex justify-content-between mt-2">
-                  <p className="optionPara">children</p>
-                  <input
-                    className="option_input"
-                    placeholder={people.children}
-                    onChange={(e) =>
-                      setPeople({ ...people, children: e.target.value })
-                    }
-                    value={people.children}
-                  />
-                </div>
-                <div className="d-flex justify-content-between mt-2">
-                  <p className="optionPara">Room</p>
-                  <input
-                    min={1}
-                    type="number"
-                    className="option_input"
-                    placeholder={people.rooms}
-                    onChange={(e) =>
-                      setPeople({ ...people, rooms: e.target.value })
-                    }
-                    value={people.rooms}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="mt-5">
-              <button className="input_searchBtn" onClick={onSearchClick}>
-                {!searchLoading ? (
-                  "Search"
-                ) : (
-                  <span className="mb-3">
-                    <ReactLoading
-                      type={loaderType}
-                      color="white"
-                      height="15px"
-                      width="15px"
-                    />
-                  </span>
                 )}
-              </button>
-            </div>
+                <div className="mt-4">
+                  <h6>options</h6>
+                  <div className="options_Container">
+                    <div className="d-flex justify-content-between mt-3">
+                      <p className="optionPara">Min Price (per night)</p>
+                      <input
+                        type="number"
+                        className="option_input"
+                        value={minPrice}
+                        onChange={(e) => setMinPrice(e.target.value)}
+                      />
+                    </div>
+                    <div className="d-flex justify-content-between mt-2">
+                      <p className="optionPara">Max Price (per night)</p>
+                      <input
+                        type="number"
+                        className="option_input"
+                        value={maxPrice}
+                        onChange={(e) => setMaxPrice(e.target.value)}
+                      />
+                    </div>
+                    <div className="d-flex justify-content-between mt-2">
+                      <p className="optionPara">Adult</p>
+                      <input
+                        type="number"
+                        min={1}
+                        className="option_input"
+                        placeholder={people.adult}
+                        onChange={(e) =>
+                          setPeople({ ...people, adult: e.target.value })
+                        }
+                        value={people.adult}
+                      />
+                    </div>
+                    <div className="d-flex justify-content-between mt-2">
+                      <p className="optionPara">children</p>
+                      <input
+                        className="option_input"
+                        placeholder={people.children}
+                        onChange={(e) =>
+                          setPeople({ ...people, children: e.target.value })
+                        }
+                        value={people.children}
+                      />
+                    </div>
+                    <div className="d-flex justify-content-between mt-2">
+                      <p className="optionPara">Room</p>
+                      <input
+                        min={1}
+                        type="number"
+                        className="option_input"
+                        placeholder={people.rooms}
+                        onChange={(e) =>
+                          setPeople({ ...people, rooms: e.target.value })
+                        }
+                        value={people.rooms}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-5">
+                  <button className="input_searchBtn" onClick={onSearchClick}>
+                    {!searchLoading ? (
+                      "Search"
+                    ) : (
+                      <span className="mb-3">
+                        <ReactLoading
+                          type={loaderType}
+                          color="white"
+                          height="15px"
+                          width="15px"
+                        />
+                      </span>
+                    )}
+                  </button>
+                </div>
+              </Col>
+              <Col sm={12}>
+                <CustomGooglMaps />
+              </Col>
+            </Row>
           </Col>
 
           {!loading ? (

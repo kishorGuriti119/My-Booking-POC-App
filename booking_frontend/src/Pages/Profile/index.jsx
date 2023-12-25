@@ -1,8 +1,14 @@
 import React from "react";
 import "./style.css";
+import CustomGooglMaps from "../../components/GoogleMap";
 
 const Profile = () => {
-  return <div className="bookings_container">profile</div>;
+  console.log("profile");
+  return (
+    <div className="bookings_container">
+      <CustomGooglMaps />
+    </div>
+  );
 };
 
 export default Profile;
