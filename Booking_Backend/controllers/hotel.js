@@ -150,8 +150,7 @@ const hotelsinCity = async (req, res, next) => {
       res.send(err);
     }
   } else {
-    console.log("nothing");
-
+   
     try {
       let allHotels = await HotelModel.find({ city: city });
       return res.send(allHotels);

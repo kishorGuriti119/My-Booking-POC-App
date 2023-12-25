@@ -565,7 +565,7 @@ function Reserve({
                   onChange={(item) => setDate([item.selection])}
                   moveRangeOnFirstSelection={false}
                   ranges={date}
-                  // minDate={new Date()}
+                  minDate={new Date()}
                   style={{ width: "99%" }}
                 />
               </div>
@@ -602,8 +602,8 @@ function Reserve({
                       <Row>
                         {room.roomNumbers.map((each, index) => {
                           return (
-                            <Col xs={2} md={1} key={`${each._id}${index}`}>
-                              <div className="d-flex flex-column align-ceneter">
+                            <Col  className='m-1' xs={2} md={1} key={`${each._id}${index}`}>
+                              <div className="checkbox-style">
                                 <span
                                   style={{
                                     fontSize: "10px",

@@ -5,7 +5,9 @@
   align-self: stretch;
   cursor: pointer;
 }
-
+.mycontainer {
+  height: max-content !important;
+}
 .para {
   margin-top: -13px !important;
 }
@@ -428,12 +430,12 @@
     font-size: 16px;
     max-width: 140px;
   }
-  
-.rating_description_card {
+
+  .rating_description_card {
     position: absolute;
     display: none;
     top: 20%;
-    right:-5%;
+    right: -5%;
     height: max-content;
     width: 300px;
     background-color: #ffffff;
