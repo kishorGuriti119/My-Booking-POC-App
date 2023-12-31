@@ -257,6 +257,10 @@ const updatefavHotelId = async (req, res, next) => {
   }
 };
 
+const getCompletedBookings = async (req, res, next) => {
+  console.log("this is completedBookings");
+};
+
 module.exports = {
   createUser,
   updateUser,
@@ -266,4 +270,5 @@ module.exports = {
   UserLogin,
   authenticate,
   updatefavHotelId,
+  getCompletedBookings,
 };
