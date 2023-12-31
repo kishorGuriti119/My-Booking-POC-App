@@ -3,6 +3,7 @@ import ReactLoading from "react-loading";
 import { Card, Container, Row, Col, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
+import axios from "axios";
 
 function UpComingBookings(props) {
   let { upcomingBookingsData } = props;
@@ -17,7 +18,15 @@ function UpComingBookings(props) {
 
   useEffect(() => {
     setSlice(upcomingBookingsData.slice(0, 4));
+    getUpcomingBookings();
   }, []);
+
+  const getUpcomingBookings = async () => {
+    let result = await axios.get(
+      `http://localhost:3001/users/${loginUser._id}/bookings/upcoming`
+    );
+    console.log(result);
+  };
 
   let [favloading, setFavLoading] = useState(false);
 
