@@ -11,6 +11,7 @@ router.get("/:id", userController.singleUser);
 router.post("/register", userController.createUser);
 router.post("/login", userController.UserLogin);
 router.post("/authentication", authController.authenticate);
+router.get('/bookings/completed' , userController.getCompletedBookings)
 
 // router.put(
 //   "/update/:id",

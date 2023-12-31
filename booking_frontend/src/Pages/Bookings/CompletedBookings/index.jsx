@@ -17,6 +17,12 @@ function CompletedBookings(props) {
 
   useEffect(() => {
     setSlice(dataTomap.slice(0, 4));
+
+    
+
+
+
+
   }, []);
 
   let [favloading, setFavLoading] = useState(false);
