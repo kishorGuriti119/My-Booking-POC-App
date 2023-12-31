@@ -3,6 +3,7 @@ import ReactLoading from "react-loading";
 import { Card, Container, Row, Col, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
+import axios from "axios";
 
 function CompletedBookings(props) {
   let { completedBookingsData } = props;
@@ -17,13 +18,16 @@ function CompletedBookings(props) {
 
   useEffect(() => {
     setSlice(dataTomap.slice(0, 4));
-
-    
-
-
-
-
+    completedBookings();
+    console.log(loginUser);
   }, []);
+
+  const completedBookings = async () => {
+    let reuslt = await axios.get(
+      `http://localhost:3001/users/${loginUser._id}/bookings/completed`
+    );
+    console.log(reuslt);
+  };
 
   let [favloading, setFavLoading] = useState(false);
 

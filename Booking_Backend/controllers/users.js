@@ -3,6 +3,9 @@ const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
 const { promisify } = require("util");
 const UserModel = require("../models/users");
+const { BookedHotels } = require("./hotel");
+const HotelModel = require("../models/hotel");
+const RoomsModel = require("../models/room");
 
 const saltRounds = 10;
 let bodywithHashedPasw;
@@ -258,7 +261,63 @@ const updatefavHotelId = async (req, res, next) => {
 };
 
 const getCompletedBookings = async (req, res, next) => {
-  console.log("this is completedBookings");
+  let date = new Date();
+  date = date.toLocaleDateString("en-GB");
+  console.log(date);
+  let userId = req.params.id;
+  try {
+    let user = await UserModel.findById(userId);
+    let userBookedHotelIds = user.BookedHotels;
+    let completedBookings = await Promise.all(
+      user.BookingDetails.map((each) => {
+        console.log(each.unavailableDates);
+        let parts =
+          each.unavailableDates[each.unavailableDates.length - 1].split("/");
+        let BookingEndDate = `${parts[1]}/${parts[0]}/${parts[2]}`; // the reason we are formating this is date should be in MM/DD/YYYY format
+        console.log(new Date(BookingEndDate).getTime(), new Date().getTime());
+
+        if (new Date(BookingEndDate).getTime() < new Date().getTime()) {
+          return each;
+        } else return null;
+      })
+    );
+
+    completedBookings = completedBookings.filter((booking) => booking !== null);
+    return res.send(completedBookings);
+  } catch (err) {
+    return next();
+  }
+};
+
+const getUpComingBookings = async (req, res, next) => {
+  let date = new Date();
+  date = date.toLocaleDateString("en-GB");
+  console.log(date);
+  let userId = req.params.id;
+  try {
+    let user = await UserModel.findById(userId);
+    let userBookedHotelIds = user.BookedHotels;
+    let UpComingBookings = await Promise.all(
+      user.BookingDetails.map((each) => {
+        console.log(each.unavailableDates);
+        let parts =
+          each.unavailableDates[each.unavailableDates.length - 1].split("/");
+        let BookingEndDate = `${parts[1]}/${parts[0]}/${parts[2]}`; // the reason we are formating this is date should be in MM/DD/YYYY format
+        console.log(new Date(BookingEndDate).getTime(), new Date().getTime());
+
+        if (new Date(BookingEndDate).getTime() > new Date().getTime()) {
+          return each;
+        } else return null;
+      })
+    );
+
+  UpComingBookings = UpComingBookings.filter(
+      (booking) => booking !== null
+    );
+    return res.send(UpComingBookings);
+  } catch (err) {
+    return next();
+  }
 };
 
 module.exports = {
@@ -271,4 +330,5 @@ module.exports = {
   authenticate,
   updatefavHotelId,
   getCompletedBookings,
+  getUpComingBookings,
 };
