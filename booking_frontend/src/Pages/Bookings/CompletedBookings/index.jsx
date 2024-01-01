@@ -7,7 +7,7 @@ import axios from "axios";
 
 function CompletedBookings(props) {
   let { completedBookingsData } = props;
-  console.log(completedBookingsData, "completed");
+  //console.log(completedBookingsData, "completed");
 
   let loginUser = JSON.parse(localStorage.getItem("loggedUser"));
   const [dataTomap, setDataToMap] = useState(completedBookingsData);
@@ -19,14 +19,28 @@ function CompletedBookings(props) {
   useEffect(() => {
     setSlice(dataTomap.slice(0, 4));
     completedBookings();
-    console.log(loginUser);
   }, []);
 
   const completedBookings = async () => {
-    let reuslt = await axios.get(
+    let result = await axios.get(
       `http://localhost:3001/users/${loginUser._id}/bookings/completed`
     );
-    console.log(reuslt);
+    //console.log(reuslt); //this gives objs of user completed bookings we need to include particular hotel details to this each obj
+
+    let eachBookingWithHotelInfo = await Promise.all(
+      result.data.map(async (each) => {
+        let BookingDetailsWithHotelInfo = await axios.get(
+          `http://localhost:3001/hotels/find/${each.hotelId}`
+        );
+
+        const { data } = BookingDetailsWithHotelInfo;
+        const { _id, ...otherDetails } = data;
+
+        return { ...otherDetails, ...each };
+      })
+    );
+
+    console.log(eachBookingWithHotelInfo, "eachBookingWithHotelInfo");
   };
 
   let [favloading, setFavLoading] = useState(false);

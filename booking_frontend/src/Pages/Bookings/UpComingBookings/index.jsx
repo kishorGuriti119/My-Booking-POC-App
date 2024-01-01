@@ -6,26 +6,43 @@ import "./style.css";
 import axios from "axios";
 
 function UpComingBookings(props) {
-  let { upcomingBookingsData } = props;
-  console.log(upcomingBookingsData, "upcoming");
   let loginUser = JSON.parse(localStorage.getItem("loggedUser"));
 
-  const [dataTomap, setDataToMap] = useState(upcomingBookingsData);
+  const [dataTomap, setDataToMap] = useState([]);
   const [showMoreButton, setShowMoreButton] = useState(true);
   const [slice, setSlice] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [bookingsLength, setBookingsLength] = useState(1);
   let loaderType = "spin";
   const navigatesTo = useNavigate();
 
   useEffect(() => {
-    setSlice(upcomingBookingsData.slice(0, 4));
     getUpcomingBookings();
+    //setSlice(dataTomap.slice(0, 4));
   }, []);
 
   const getUpcomingBookings = async () => {
+    setLoading(true);
     let result = await axios.get(
       `http://localhost:3001/users/${loginUser._id}/bookings/upcoming`
     );
-    console.log(result);
+
+    let eachBookingWithHotelInfo = await Promise.all(
+      result.data.map(async (each) => {
+        let BookingDetailsWithHotelInfo = await axios.get(
+          `http://localhost:3001/hotels/find/${each.hotelId}`
+        );
+
+        const { data } = BookingDetailsWithHotelInfo;
+        const { _id, ...otherDetails } = data;
+
+        return { ...otherDetails, ...each };
+      })
+    );
+    setDataToMap(eachBookingWithHotelInfo);
+    setBookingsLength(eachBookingWithHotelInfo.length);
+    setSlice(eachBookingWithHotelInfo.slice(0, 4));
+    setLoading(false);
   };
 
   let [favloading, setFavLoading] = useState(false);
@@ -179,7 +196,7 @@ function UpComingBookings(props) {
         </Row>
       </Container>
       {showMoreButton & (slice.length >= 4) ? (
-        <div className="d-flex justify-content-end w-100 mt-4">
+        <div className="d-flex justify-content-end w-100 mt-4 g-2">
           <Button onClick={showFullList}>
             View All
             <svg
@@ -200,6 +217,17 @@ function UpComingBookings(props) {
       ) : (
         ""
       )}
+      {/* {true && (
+        <div>
+          {Array.from({ length: bookingsLength }).map((value, index) => {
+            return (
+              <>
+                <Button> {index + 1} </Button>{" "}
+              </>
+            );
+          })}
+        </div>
+      )} */}
     </>
   );
 }
