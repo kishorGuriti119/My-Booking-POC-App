@@ -192,7 +192,7 @@ function UpComingBookings(props) {
               </Col>
             );
           })}
-          {slice.length === 0 && <div> No Data</div>}
+          {slice.length === 0 & !loading ?<div> No Data</div> : <div>{" "}</div>}
         </Row>
       </Container>
       {showMoreButton & (slice.length >= 4) ? (

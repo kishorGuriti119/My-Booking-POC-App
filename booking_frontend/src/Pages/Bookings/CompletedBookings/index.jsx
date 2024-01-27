@@ -10,9 +10,10 @@ function CompletedBookings(props) {
   //console.log(completedBookingsData, "completed");
 
   let loginUser = JSON.parse(localStorage.getItem("loggedUser"));
-  const [dataTomap, setDataToMap] = useState(completedBookingsData);
+  const [dataTomap, setDataToMap] = useState([]);
   const [showMoreButton, setShowMoreButton] = useState(true);
   const [slice, setSlice] = useState([]);
+  const [ShowLoading , setShowLoading]=useState(false);
   let loaderType = "spin";
   const navigatesTo = useNavigate();
 
@@ -22,6 +23,7 @@ function CompletedBookings(props) {
   }, []);
 
   const completedBookings = async () => {
+    setShowLoading(true)
     let result = await axios.get(
       `http://localhost:3001/users/${loginUser._id}/bookings/completed`
     );
@@ -41,6 +43,10 @@ function CompletedBookings(props) {
     );
 
     console.log(eachBookingWithHotelInfo, "eachBookingWithHotelInfo");
+    setDataToMap(eachBookingWithHotelInfo);
+    //setBookingsLength(eachBookingWithHotelInfo.length);
+    setSlice(eachBookingWithHotelInfo.slice(0, 4));
+    setShowLoading(false);
   };
 
   let [favloading, setFavLoading] = useState(false);
@@ -102,30 +108,7 @@ function CompletedBookings(props) {
     <>
       <Container>
         <Row>
-          {slice.length < 1 && (
-            <Col>
-              <div className="d-flex flex-column align-items-center">
-                <h4>No Completed Bookings </h4>
-                <p> Looks like you haven't explored the world yet !</p>
-                <span>never is too late , you can start expolre now </span>
-                <p>
-                  Beautify world is waiting for you{" "}
-                  <span
-                    style={{
-                      textDecoration: "underline",
-                      color: "blue",
-                      cursor: "pointer",
-                    }}
-                    onClick={() => NavigateBookingPage()}
-                  >
-                    click here
-                  </span>{" "}
-                  to book now
-                </p>
-              </div>
-            </Col>
-          )}
-          {slice.map((eachHotel, i) => {
+          {slice?.map((eachHotel, i) => {
             return (
               <Col sm={12} lg={6} key={`${eachHotel._id}${i}`}>
                 <Card>
@@ -208,6 +191,31 @@ function CompletedBookings(props) {
               </Col>
             );
           })}
+           {slice.length < 1 & !ShowLoading ? (
+            <Col>
+              <div className="d-flex flex-column align-items-center">
+                <h4>No Completed Bookings </h4>
+                <p> Looks like you haven't explored the world yet !</p>
+                <span>never is too late , you can start expolre now </span>
+                <p>
+                  Beautify world is waiting for you{" "}
+                  <span
+                    style={{
+                      textDecoration: "underline",
+                      color: "blue",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => NavigateBookingPage()}
+                  >
+                    click here
+                  </span>{" "}
+                  to book now
+                </p>
+              </div>
+            </Col>
+          )
+        :
+        <div>{" "}</div>}
         </Row>
       </Container>
       {showMoreButton & (slice.length >= 4) ? (
