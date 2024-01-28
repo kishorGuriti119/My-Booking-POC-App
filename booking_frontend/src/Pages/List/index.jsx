@@ -719,7 +719,7 @@ function List() {
           )}
         </Row>
         {!loading ? (
-          <div className="d-flex justify-content-end w-90 m-4">
+          <div className="d-flex justify-content-end w-100 m-4">
             <PaginationComponent
               cardCount={Mydata.length}
               changePage={changePage}
