@@ -7,6 +7,7 @@ const Profile = () => {
   return (
     <div className="bookings_container">
       <CustomGooglMaps />
+      <p>para</p>
     </div>
   );
 };
