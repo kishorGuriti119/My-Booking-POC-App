@@ -15,6 +15,8 @@ import ReactLoading from "react-loading";
 import { useSearchParams } from "react-router-dom";
 import CustomGooglMaps from "../../components/GoogleMap";
 import NoHotelsFound from "../../components/NoHotelsFound";
+import PaginationComponent from "../../components/Pagination";
+import axios from "axios";
 
 function List() {
   let loaderType = "spin";
@@ -44,6 +46,7 @@ function List() {
   );
 
   const [Mydata, setMyData] = useState([]);
+  const [slice, setSlice] = useState([]);
   let [favloading, setFavLoading] = useState(false);
   const [hotelFeedBack, setHotelFeedBack] = useState("");
   const [searchLoading, setSearchLoading] = useState(false);
@@ -96,21 +99,37 @@ function List() {
   }
 
   useEffect(() => {
-    fetch(`http://localhost:3001/hotels/city?city=${destination.toLowerCase()}`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        // console.log(res);
-        setMyData(res);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // fetch(`http://localhost:3001/hotels/city?city=${destination.toLowerCase()}`)
+    //   .then((res) => {
+    //     return res.json();
+    //   })
+    //   .then((res) => {
+    //     // console.log(res);
+    //     setMyData(res);
+    //     setLoading(false);
+    //     setSlice(res.slice(0, 4));
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    getAllHotels();
   }, []);
 
-  function onSearchClick() {
+  const getAllHotels = async () => {
+    try {
+      let hotels = await axios.get(
+        `http://localhost:3001/hotels/city?city=${destination.toLowerCase()}`
+      );
+      console.log(hotels.data);
+      setMyData(hotels.data);
+      setLoading(false);
+      setSlice(hotels.data.slice(0, 4));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const onSearchClick = async () => {
     setSearchLoading(true);
     navigatesTo(
       `/Booking.com/hotels?searchresults.en-gb.html?&city=${destination.toLowerCase()}&type=all&adult=${
@@ -120,22 +139,39 @@ function List() {
       }&to=${date[0].endDate}`
     );
 
-    fetch(
-      `http://localhost:3001/hotels/city?city=${destination.toLowerCase()}&min=${minPrice}&max=${maxPrice}`
-    )
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        // console.log(res);
-        setMyData(res);
-        setLoading(false);
-        setSearchLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+    // fetch(
+    //   `http://localhost:3001/hotels/city?city=${destination.toLowerCase()}&min=${minPrice}&max=${maxPrice}`
+    // )
+    //   .then((res) => {
+    //     return res.json();
+    //   })
+    //   .then((res) => {
+    //     // console.log(res);
+    //     setMyData(res);
+    //     setLoading(false);
+    //     setSearchLoading(false);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+
+    try {
+      let hotels = await axios.get(
+        `http://localhost:3001/hotels/city?city=${destination.toLowerCase()}`
+      );
+      console.log(hotels.data);
+      setMyData(hotels.data);
+      setLoading(false);
+      setSlice(hotels.data.slice(0, 4));
+      setSearchLoading(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const changePage = (value) => {
+    setSlice(Mydata.slice(value * 4 - 4, value * 4));
+  };
 
   function changeDate(item) {
     setDate([item.selection]);
@@ -318,7 +354,7 @@ function List() {
                 <Col sm={12} md={8} lg={9}>
                   <Container className="list_items">
                     <Row>
-                      {Mydata?.map((eachHotel, i) => {
+                      {slice?.map((eachHotel, i) => {
                         return (
                           <Col sm={12} key={`${eachHotel._id}${i}`}>
                             <Card>
@@ -682,6 +718,16 @@ function List() {
             </div>
           )}
         </Row>
+        {!loading ? (
+          <div className="d-flex justify-content-end w-90 m-4">
+            <PaginationComponent
+              cardCount={Mydata.length}
+              changePage={changePage}
+            />
+          </div>
+        ) : (
+          ""
+        )}
       </Container>
       <Footer />
     </>

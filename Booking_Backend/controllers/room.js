@@ -270,20 +270,12 @@ const sendEmail = async (req, res, next) => {
 };
 
 const cancelRoom = async (req, res, next) => {
-  // let bookingObj = {
-  //   _id: req.body._id,
-  //   number: req.body.number,
-  //   unavailableDates: req.body.unavailableDates,
-  // };
-  // console.log(bookingObj, "278");
-
-  const bookingobj = {
-    number: 101,
-    unavailableDates: ["19/10/2023", "20/10/2023", "21/10/2023"],
-    _id: "652cdb2b8a0d44037a011332",
-    hotelId: "64a28da8876f1254391f58d9",
+  let bookingObj = {
+    number: req.body.number,
+    unavailableDates: req.body.unavailableDates,
+    _id: req.body._id,
+    hotelId: req.body.hotelId,
   };
-  console.log(bookingobj, "286");
   try {
     let hotel = await HotelModel.findById(req.body.hotelId);
     if (!hotel) {
@@ -310,12 +302,9 @@ const cancelRoom = async (req, res, next) => {
     if (!updateduser) {
       return res.send(" user not exist ");
     }
-    // let bookingToBeCancell = await updateduser.BookingDetails.find(
-    //   (obj) => obj._id === req.body._id
-    // );
+
     let updateduserBookings = updateduser.BookingDetails.filter((each) => {
-      // console.log(each, "310");
-      return each !== bookingobj;
+      return JSON.stringify(each) !== JSON.stringify(bookingObj);
     });
 
     console.log(updateduserBookings, "321");
@@ -329,7 +318,7 @@ const cancelRoom = async (req, res, next) => {
     await hotel.save();
     return res.send({ result: "succuss" });
   } catch (err) {
-    console.log(err);
+   // console.log(err);
     return res.send(err);
   }
 };

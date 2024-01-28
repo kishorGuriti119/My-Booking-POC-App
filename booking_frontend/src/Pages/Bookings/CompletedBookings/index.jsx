@@ -4,31 +4,28 @@ import { Card, Container, Row, Col, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
 import axios from "axios";
+import PaginationComponent from "../../../components/Pagination";
 
 function CompletedBookings(props) {
-  let { completedBookingsData } = props;
-  //console.log(completedBookingsData, "completed");
-
   let loginUser = JSON.parse(localStorage.getItem("loggedUser"));
   const [dataTomap, setDataToMap] = useState([]);
-  const [showMoreButton, setShowMoreButton] = useState(true);
   const [slice, setSlice] = useState([]);
-  const [ShowLoading , setShowLoading]=useState(false);
+  const [showMoreButton, setShowMoreButton] = useState(true);
+
+  const [ShowLoading, setShowLoading] = useState(false);
   let loaderType = "spin";
   const navigatesTo = useNavigate();
 
   useEffect(() => {
-    setSlice(dataTomap.slice(0, 4));
     completedBookings();
+    setSlice(dataTomap.slice(0, 4));
   }, []);
 
   const completedBookings = async () => {
-    setShowLoading(true)
+    setShowLoading(true);
     let result = await axios.get(
       `http://localhost:3001/users/${loginUser._id}/bookings/completed`
     );
-    //console.log(reuslt); //this gives objs of user completed bookings we need to include particular hotel details to this each obj
-
     let eachBookingWithHotelInfo = await Promise.all(
       result.data.map(async (each) => {
         let BookingDetailsWithHotelInfo = await axios.get(
@@ -37,14 +34,12 @@ function CompletedBookings(props) {
 
         const { data } = BookingDetailsWithHotelInfo;
         const { _id, ...otherDetails } = data;
-
         return { ...otherDetails, ...each };
       })
     );
 
     console.log(eachBookingWithHotelInfo, "eachBookingWithHotelInfo");
     setDataToMap(eachBookingWithHotelInfo);
-    //setBookingsLength(eachBookingWithHotelInfo.length);
     setSlice(eachBookingWithHotelInfo.slice(0, 4));
     setShowLoading(false);
   };
@@ -76,6 +71,10 @@ function CompletedBookings(props) {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const changePage = (value) => {
+    setSlice(dataTomap.slice(value * 4 - 4, value * 4));
   };
 
   const navigatesToHotel = (each) => {
@@ -191,7 +190,7 @@ function CompletedBookings(props) {
               </Col>
             );
           })}
-           {slice.length < 1 & !ShowLoading ? (
+          {(slice.length < 1) & !ShowLoading ? (
             <Col>
               <div className="d-flex flex-column align-items-center">
                 <h4>No Completed Bookings </h4>
@@ -213,29 +212,35 @@ function CompletedBookings(props) {
                 </p>
               </div>
             </Col>
-          )
-        :
-        <div>{" "}</div>}
+          ) : (
+            <div> </div>
+          )}
         </Row>
       </Container>
-      {showMoreButton & (slice.length >= 4) ? (
-        <div className="d-flex justify-content-end w-100 mt-4">
-          <Button onClick={showFullList}>
-            View All
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              fill="currentColor"
-              className="bi bi-arrow-right-short"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fillRule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-              />
-            </svg>
-          </Button>
+      {showMoreButton & (dataTomap.length >= 4) ? (
+        // <div className="d-flex justify-content-end w-100 mt-4">
+        //   <Button onClick={showFullList}>
+        //     View All
+        //     <svg
+        //       xmlns="http://www.w3.org/2000/svg"
+        //       width="20"
+        //       height="20"
+        //       fill="currentColor"
+        //       className="bi bi-arrow-right-short"
+        //       viewBox="0 0 16 16"
+        //     >
+        //       <path
+        //         fillRule="evenodd"
+        //         d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+        //       />
+        //     </svg>
+        //   </Button>
+        // </div>
+        <div className="d-flex justify-content-end w-90 m-4">
+          <PaginationComponent
+            cardCount={dataTomap.length}
+            changePage={changePage}
+          />
         </div>
       ) : (
         ""

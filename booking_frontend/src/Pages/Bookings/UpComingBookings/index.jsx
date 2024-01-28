@@ -2,19 +2,27 @@ import React, { useEffect, useState } from "react";
 import ReactLoading from "react-loading";
 import { Card, Container, Row, Col, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import CancelConfirmation from "../../../components/cancelConfirmation";
+import PaginationComponent from "../../../components/Pagination";
 import "./style.css";
 import axios from "axios";
 
 function UpComingBookings(props) {
   let loginUser = JSON.parse(localStorage.getItem("loggedUser"));
-
   const [dataTomap, setDataToMap] = useState([]);
   const [showMoreButton, setShowMoreButton] = useState(true);
   const [slice, setSlice] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(true);
   const [bookingsLength, setBookingsLength] = useState(1);
+
+  const [showCancelConfirmationDialog, setshowCancelConfirmationDialog] =
+    useState(false);
   let loaderType = "spin";
+  const [triggeredBooking, setTriggeredBooking] = useState({});
   const navigatesTo = useNavigate();
+
+  let cancellationObj = {};
 
   useEffect(() => {
     getUpcomingBookings();
@@ -41,7 +49,9 @@ function UpComingBookings(props) {
     );
     setDataToMap(eachBookingWithHotelInfo);
     setBookingsLength(eachBookingWithHotelInfo.length);
+    console.log(eachBookingWithHotelInfo);
     setSlice(eachBookingWithHotelInfo.slice(0, 4));
+
     setLoading(false);
   };
 
@@ -73,31 +83,57 @@ function UpComingBookings(props) {
       });
   };
 
-  const cancelBooking = (hotel) => {
-    // let bookingObj = {
-    //   _id: hotel._id,
-    //   number: hotel.number,
-    //   unavailableDates: hotel.unavailableDates,
-    // };
-    // console.log(bookingObj);
-    console.log({ ...hotel, userId: loginUser._id }, "cancel details");
-    let bookingDetails = { ...hotel, userId: loginUser._id };
+  const cancelBooking = async (hotel) => {
+    setshowCancelConfirmationDialog(true);
+    setTriggeredBooking({ ...hotel, userId: loginUser._id });
+
+    //console.log({ ...hotel, userId: loginUser._id }, "cancel details");
+    // let bookingDetails = { ...hotel, userId: loginUser._id };
+    // fetch(`http://localhost:3001/rooms/cancel`, {
+    //   method: "put",
+    //   headers: {
+    //     "content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(bookingDetails),
+    // })
+    //   .then((res) => {
+    //     return res.json();
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+  };
+
+  const cancellationConfirmed = () => {
     fetch(`http://localhost:3001/rooms/cancel`, {
       method: "put",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(bookingDetails),
+      body: JSON.stringify(triggeredBooking),
     })
       .then((res) => {
         return res.json();
       })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
+        setshowCancelConfirmationDialog(false);
+        getUpcomingBookings();
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const handleClose = () => {
+    setshowCancelConfirmationDialog(false);
+  };
+
+  const changePage = (value) => {
+    setSlice(dataTomap.slice(value * 4 - 4, value * 4));
   };
 
   const navigatesToHotel = (each) => {
@@ -192,42 +228,49 @@ function UpComingBookings(props) {
               </Col>
             );
           })}
-          {slice.length === 0 & !loading ?<div> No Data</div> : <div>{" "}</div>}
+          {(slice.length === 0) & !loading ? (
+            <div>No upcoming bookings</div>
+          ) : (
+            <div> </div>
+          )}
         </Row>
       </Container>
-      {showMoreButton & (slice.length >= 4) ? (
-        <div className="d-flex justify-content-end w-100 mt-4 g-2">
-          <Button onClick={showFullList}>
-            View All
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              fill="currentColor"
-              className="bi bi-arrow-right-short"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fillRule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-              />
-            </svg>
-          </Button>
+      {showMoreButton & (dataTomap.length >= 4) ? (
+        // <div className="d-flex justify-content-end w-100 mt-4 g-2">
+        //   <Button onClick={showFullList}>
+        //     View All
+        //     <svg
+        //       xmlns="http://www.w3.org/2000/svg"
+        //       width="20"
+        //       height="20"
+        //       fill="currentColor"
+        //       className="bi bi-arrow-right-short"
+        //       viewBox="0 0 16 16"
+        //     >
+        //       <path
+        //         fillRule="evenodd"
+        //         d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+        //       />
+        //     </svg>
+        //   </Button>
+        // </div>
+        <div className="d-flex justify-content-end w-90 m-4">
+          <PaginationComponent
+            cardCount={dataTomap.length}
+            changePage={changePage}
+          />
         </div>
       ) : (
         ""
       )}
-      {/* {true && (
-        <div>
-          {Array.from({ length: bookingsLength }).map((value, index) => {
-            return (
-              <>
-                <Button> {index + 1} </Button>{" "}
-              </>
-            );
-          })}
-        </div>
-      )} */}
+      {showCancelConfirmationDialog && (
+        <CancelConfirmation
+          showCancelConfirmationDialog={showCancelConfirmationDialog}
+          handleClose={handleClose}
+          cancellationConfirmed={cancellationConfirmed}
+          triggeredBooking={triggeredBooking}
+        />
+      )}
     </>
   );
 }
