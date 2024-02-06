@@ -16,6 +16,7 @@ import { useSearchParams } from "react-router-dom";
 import CustomGooglMaps from "../../components/GoogleMap";
 import NoHotelsFound from "../../components/NoHotelsFound";
 import PaginationComponent from "../../components/Pagination";
+import PriceRange from "../../components/PriceRange";
 import axios from "axios";
 
 function List() {
@@ -45,6 +46,7 @@ function List() {
     searchDetails?.state?.people ? searchDetails.state.people : peopleFromUrl
   );
 
+  const [priceRangeArray, SetPriceRangeArray] = useState([1, 100]);
   const [Mydata, setMyData] = useState([]);
   const [slice, setSlice] = useState([]);
   let [favloading, setFavLoading] = useState(false);
@@ -55,7 +57,7 @@ function List() {
     urlQueryObj?.min ? parseInt(urlQueryObj.min) : 1000
   );
   const [maxPrice, setMaxPrice] = useState(
-    urlQueryObj?.max ? parseInt(urlQueryObj.max) : 4000000
+    urlQueryObj?.max ? parseInt(urlQueryObj.max) : 100000
   );
   const [date, setDate] = useState([
     {
@@ -75,6 +77,12 @@ function List() {
   );
 
   localStorage.setItem("selectedDate", JSON.stringify(date));
+
+  const handleChange = (event, newValue) => {
+    SetPriceRangeArray(newValue);
+    setMinPrice(newValue[0] * 1000);
+    setMaxPrice(newValue[1] * 1000);
+  };
 
   function navigatesToHotel(each, price, tax) {
     let bookingBill = Math.ceil(
@@ -132,7 +140,7 @@ function List() {
   const onSearchClick = async () => {
     setSearchLoading(true);
     navigatesTo(
-      `/Booking.com/hotels?searchresults.en-gb.html?&city=${destination.toLowerCase()}&type=all&adult=${
+      `/Booking.com/hotels?searchresults.en-gb.html?&city=${destination.toLowerCase()}&min=${minPrice}&max=${maxPrice}&type=all&adult=${
         people.adult
       }&child=${people.children}&rooms=${people.rooms}&from=${
         date[0].startDate
@@ -157,7 +165,7 @@ function List() {
 
     try {
       let hotels = await axios.get(
-        `http://localhost:3001/hotels/city?city=${destination.toLowerCase()}`
+        `http://localhost:3001/hotels/city?city=${destination.toLowerCase()}&min=${minPrice}&max=${maxPrice}`
       );
       console.log(hotels.data);
       setMyData(hotels.data);
@@ -264,8 +272,10 @@ function List() {
                 <div className="mt-4">
                   <h6>options</h6>
                   <div className="options_Container">
-                    <div className="d-flex justify-content-between mt-3">
-                      <p className="optionPara">Min Price (per night)</p>
+                    {/* <div className="d-flex justify-content-between mt-3">
+                      <p className="optionPara">
+                        Min Price (per night in 1000)
+                      </p>
                       <input
                         type="number"
                         className="option_input"
@@ -274,12 +284,27 @@ function List() {
                       />
                     </div>
                     <div className="d-flex justify-content-between mt-2">
-                      <p className="optionPara">Max Price (per night)</p>
+                      <p className="optionPara">
+                        Max Price (per night in 1000)
+                      </p>
                       <input
                         type="number"
                         className="option_input"
                         value={maxPrice}
                         onChange={(e) => setMaxPrice(e.target.value)}
+                      />
+                    </div> */}
+                    <div className="mt-2">
+                      <p className="optionPara">
+                        Min-Max Price (per night in 1000)
+                      </p>
+                      <div className="d-flex justify-content-between">
+                        <span>₹ {priceRangeArray[0] * 1000}</span>{" "}
+                        <span>₹ {priceRangeArray[1] * 1000}</span>
+                      </div>
+                      <PriceRange
+                        handleChange={handleChange}
+                        value={priceRangeArray}
                       />
                     </div>
                     <div className="d-flex justify-content-between mt-2">
@@ -319,6 +344,19 @@ function List() {
                         value={people.rooms}
                       />
                     </div>
+                    {/* <div className="mt-2">
+                      <p className="optionPara">
+                        Min-Max Price (per night in 1000)
+                      </p>
+                      <div className="d-flex justify-content-between">
+                        <span>₹ {priceRangeArray[0] * 1000}</span>{" "}
+                        <span>₹ {priceRangeArray[1] * 1000}</span>
+                      </div>
+                      <PriceRange
+                        handleChange={handleChange}
+                        value={priceRangeArray}
+                      />
+                    </div> */}
                   </div>
                 </div>
                 <div className="mt-5">
