@@ -11,7 +11,7 @@ const NoHotelsFound = ({ city }) => {
           <FontAwesomeIcon icon={faMagnifyingGlass} fontSize={36} />
         </div>
 
-        <h3 className="search_result_title">No properties found in {city}</h3>
+        <h3 className="search_result_title">No properties found</h3>
         <p>
           There are no matching properties for your search criteria. Try
           updating your search.

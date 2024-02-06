@@ -4,6 +4,7 @@ import { Card, Container, Row, Col, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import CancelConfirmation from "../../../components/cancelConfirmation";
 import PaginationComponent from "../../../components/Pagination";
+import notify from "../../../components/ToastMessage";
 import "./style.css";
 import axios from "axios";
 
@@ -121,7 +122,7 @@ function UpComingBookings(props) {
       .then((res) => {
         //console.log(res);
         setshowCancelConfirmationDialog(false);
-        
+        notify("Cancelled", "Succuss");
         getUpcomingBookings();
       })
       .catch((err) => {
