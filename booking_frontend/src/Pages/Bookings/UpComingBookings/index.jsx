@@ -121,6 +121,7 @@ function UpComingBookings(props) {
       .then((res) => {
         //console.log(res);
         setshowCancelConfirmationDialog(false);
+        
         getUpcomingBookings();
       })
       .catch((err) => {

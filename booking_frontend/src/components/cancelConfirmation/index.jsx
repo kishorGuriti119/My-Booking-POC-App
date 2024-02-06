@@ -6,7 +6,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-
 export default function CancelConfirmation(props) {
   console.log(props.triggeredBooking);
 
@@ -19,18 +18,21 @@ export default function CancelConfirmation(props) {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Confirm Cancellation?"}
+          {"Confirm Cancellation"}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {`are you sure want to cancell this booking`}
+          <DialogContentText
+            id="alert-dialog-description"
+            marginBottom={"24px"}
+          >
+            {`are you sure want to cancell this booking?`}
           </DialogContentText>
 
-          <DialogContentText>
+          <DialogContentText fontWeight={"bold"}>
             {`Hotel : - ${props.triggeredBooking.name}`}
           </DialogContentText>
 
-          <DialogContentText>
+          <DialogContentText fontWeight={"bold"}>
             {`Booking Dates : ${
               props.triggeredBooking.unavailableDates[0]
             } -  ${
@@ -40,13 +42,15 @@ export default function CancelConfirmation(props) {
             } `}
           </DialogContentText>
 
-          <DialogContentText>
+          <DialogContentText fontWeight={"bold"}>
             {`Room Number - ${props.triggeredBooking.number}`}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={props.cancellationConfirmed}>Yes</Button>
-          <Button onClick={props.handleClose} autoFocus>
+          <Button onClick={props.cancellationConfirmed} sx={{ color: "Black" }}>
+            Yes
+          </Button>
+          <Button onClick={props.handleClose} autoFocus sx={{ color: "Black" }}>
             No
           </Button>
         </DialogActions>

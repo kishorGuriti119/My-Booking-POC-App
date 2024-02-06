@@ -528,10 +528,14 @@ function Reserve({
         />
         <Row>
           <Col xs={12} md={6}>
-            <p>select your rooms:</p>
+            <p>
+              <b>select your rooms:</b>
+            </p>
           </Col>
           <Col xs={12} md={6}>
-            <label>Modify date here</label>
+            <label>
+              <b>Date</b>
+            </label>
             <div className="date_modify">
               <input
                 style={{
@@ -565,7 +569,7 @@ function Reserve({
                   onChange={(item) => setDate([item.selection])}
                   moveRangeOnFirstSelection={false}
                   ranges={date}
-                   minDate={new Date()}
+                  minDate={new Date()}
                   style={{ width: "99%" }}
                 />
               </div>
@@ -602,7 +606,12 @@ function Reserve({
                       <Row>
                         {room.roomNumbers.map((each, index) => {
                           return (
-                            <Col  className='m-1' xs={2} md={1} key={`${each._id}${index}`}>
+                            <Col
+                              className="m-1"
+                              xs={2}
+                              md={1}
+                              key={`${each._id}${index}`}
+                            >
                               <div className="checkbox-style">
                                 <span
                                   style={{

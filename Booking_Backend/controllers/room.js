@@ -2,6 +2,7 @@ var RoomsModel = require("../models/room");
 var HotelModel = require("../models/hotel");
 var nodemailer = require("nodemailer");
 const UserModel = require("../models/users");
+const { v4: uuidv4 } = require("uuid");
 
 const CreateNewRoom = async (req, res, next) => {
   const roomdetails = req.body;
@@ -169,6 +170,7 @@ const bookRoom = async (req, res, next) => {
     next();
   }
   try {
+    const bookingId = uuidv4();
     let hotel = await HotelModel.findById(hotelId);
 
     if (hotel.length === 0) {
@@ -210,6 +212,7 @@ const bookRoom = async (req, res, next) => {
         selectedIndividualRoom[0][0].unavailableDates = selectedDates;
         console.log(selectedIndividualRoom, "278");
         await hotel.save();
+
         return res.send(selectedIndividualRoom);
       }
     }
@@ -318,7 +321,7 @@ const cancelRoom = async (req, res, next) => {
     await hotel.save();
     return res.send({ result: "succuss" });
   } catch (err) {
-   // console.log(err);
+    // console.log(err);
     return res.send(err);
   }
 };
