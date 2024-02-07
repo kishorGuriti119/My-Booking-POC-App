@@ -215,9 +215,9 @@ function List() {
       <Header type="list" />
       <Container className="mycontainer">
         <Row>
-          <Col sm={12} md={4} lg={3} class="Search_map_container">
+          <Col sm={12} md={4} lg={3}>
             <Row>
-              <Col sm={12} className="search_Container mt-4">
+              <Col sm={12} className="search_Container mt-4 ml-0 mr-0">
                 <h4>Search</h4>
                 <div>
                   <p style={{ margin: "2px", marginTop: "15px" }}>
