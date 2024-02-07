@@ -4,7 +4,9 @@ import "./style.css";
 
 const containerStyle = {
   width: "320px",
-  height: "350px",
+  //height: "350px",
+  //width: "100%",
+  height: "100%",
 };
 
 const markers = [
