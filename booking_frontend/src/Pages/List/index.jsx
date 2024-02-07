@@ -217,7 +217,7 @@ function List() {
         <Row>
           <Col sm={12} md={4} lg={3} class="Search_map_container">
             <Row>
-              <Col sm={12} className="search_Container mt-3">
+              <Col sm={12} className="search_Container mt-4">
                 <h4>Search</h4>
                 <div>
                   <p style={{ margin: "2px", marginTop: "15px" }}>
@@ -756,7 +756,7 @@ function List() {
             </div>
           )}
         </Row>
-        {!loading ? (
+        {!loading & (Mydata.length > 0) ? (
           <div className="d-flex justify-content-end w-100 m-4">
             <PaginationComponent
               cardCount={Mydata.length}

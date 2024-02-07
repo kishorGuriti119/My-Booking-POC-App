@@ -2,16 +2,17 @@ import React, { useEffect, useState } from "react";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 
-export default function PaginationComponent(props) {
+export default function PaginationComponent({ cardCount, changePage }) {
   const [cardCountValue, setCardCountValue] = useState(
-    Math.ceil(props.cardCount / 4)
+    Math.ceil(cardCount / 4)
   );
   useEffect(() => {
-    setCardCountValue(Math.ceil(props.cardCount / 4));
-  }, []);
+    setCardCountValue(Math.ceil(cardCount / 4));
+    console.log(cardCount, "count");
+  }, [cardCount]);
 
   const handleChange = (e, value) => {
-    props.changePage(value);
+    changePage(value);
   };
 
   return (
