@@ -71,8 +71,9 @@ const CountByCities = async (req, res) => {
   let cities = req.query.cities.split(",");
   try {
     let hotelsCount = await Promise.all(
-      cities.map((city) => {
-        return HotelModel.countDocuments({ city: city });
+      cities.map(async (city) => {
+        const count = await HotelModel.countDocuments({ city: city });
+        return { label: city, value: count };
       })
     );
     return res.send(hotelsCount);
@@ -150,7 +151,6 @@ const hotelsinCity = async (req, res, next) => {
       res.send(err);
     }
   } else {
-   
     try {
       let allHotels = await HotelModel.find({ city: city });
       return res.send(allHotels);
@@ -186,16 +186,18 @@ const CountBytypeAndCity = async (req, res, next) => {
       type: "resort",
       city: city,
     });
-    return res.send({
-      city: city,
-      counts: {
-        hotelCount: HotelTypeCount,
-        apartmentCount: ApartmentTypeCount,
-        villaCount: VillaTypeCount,
-        cabinCount: CabinTypeCount,
-        resortCount: ResortTypeCount,
+    return res.send([
+      {
+        city: city,
+        counts: [
+          { label: "Hotel", value: HotelTypeCount },
+          { label: "Apartments", value: ApartmentTypeCount },
+          { label: "Villa", value: VillaTypeCount },
+          { label: "Cabin", value: CabinTypeCount },
+          { label: "Resort", value: ResortTypeCount },
+        ],
       },
-    });
+    ]);
   } catch (err) {
     return res.send(err);
   }
@@ -271,7 +273,7 @@ const BookedHotels = async (req, res, next) => {
 
     return res.send(BookedHotesList);
   } catch (err) {
-    return res.send(er)
+    return res.send(er);
   }
 };
 
