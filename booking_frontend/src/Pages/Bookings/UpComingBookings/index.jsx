@@ -256,7 +256,7 @@ function UpComingBookings(props) {
         //     </svg>
         //   </Button>
         // </div>
-        <div className="d-flex justify-content-end w-90 m-4">
+        <div className="d-flex justify-content-end m-4">
           <PaginationComponent
             cardCount={dataTomap.length}
             changePage={changePage}

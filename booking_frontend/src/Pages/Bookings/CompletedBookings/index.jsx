@@ -5,13 +5,14 @@ import { useNavigate } from "react-router-dom";
 import "./style.css";
 import axios from "axios";
 import PaginationComponent from "../../../components/Pagination";
+import UserFeedBack from "../../../components/UserFeedBack";
 
 function CompletedBookings(props) {
   let loginUser = JSON.parse(localStorage.getItem("loggedUser"));
   const [dataTomap, setDataToMap] = useState([]);
   const [slice, setSlice] = useState([]);
   const [showMoreButton, setShowMoreButton] = useState(true);
-
+  const [ShowAddReviewModel, setShowAddReviewModel] = useState(false);
   const [ShowLoading, setShowLoading] = useState(false);
   let loaderType = "spin";
   const navigatesTo = useNavigate();
@@ -93,14 +94,16 @@ function CompletedBookings(props) {
   };
 
   const giveFeedback = (each) => {
-    console.log(each, "clicked on feed back");
+    setShowAddReviewModel(true);
+    // console.log(each, "clicked on feed back");
 
-    let bookingObj = {
-      _id: each._id,
-      number: each.number,
-      unavailableDates: each.unavailableDates,
-    };
-    console.log(bookingObj);
+    // let bookingObj = {    ShowAddReviewModel
+
+    //   _id: each._id,
+    //   number: each.number,
+    //   unavailableDates: each.unavailableDates,
+    // };
+    // console.log(bookingObj);
   };
 
   return (
@@ -218,25 +221,7 @@ function CompletedBookings(props) {
         </Row>
       </Container>
       {showMoreButton & (dataTomap.length >= 4) ? (
-        // <div className="d-flex justify-content-end w-100 mt-4">
-        //   <Button onClick={showFullList}>
-        //     View All
-        //     <svg
-        //       xmlns="http://www.w3.org/2000/svg"
-        //       width="20"
-        //       height="20"
-        //       fill="currentColor"
-        //       className="bi bi-arrow-right-short"
-        //       viewBox="0 0 16 16"
-        //     >
-        //       <path
-        //         fillRule="evenodd"
-        //         d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-        //       />
-        //     </svg>
-        //   </Button>
-        // </div>
-        <div className="d-flex justify-content-end w-90 m-4">
+        <div className="d-flex justify-content-end  m-4">
           <PaginationComponent
             cardCount={dataTomap.length}
             changePage={changePage}
@@ -244,6 +229,10 @@ function CompletedBookings(props) {
         </div>
       ) : (
         ""
+      )}
+
+      {ShowAddReviewModel && (
+        <UserFeedBack ShowAddReviewModel={ShowAddReviewModel} />
       )}
     </>
   );
