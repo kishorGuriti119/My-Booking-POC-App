@@ -10,7 +10,7 @@ const data = [
 ];
 
 const sizing = {
-  margin: { right: 5 },
+  margin: { left: 5 },
   //width: 100,
   height: 400,
   legend: { hidden: true },
@@ -42,7 +42,7 @@ export default function PieChartWithCustomizedLabel({ data }) {
     <PieChart
       series={[
         {
-          outerRadius: 80,
+          outerRadius: 150,
           data,
           arcLabel: getArcLabel,
         },
