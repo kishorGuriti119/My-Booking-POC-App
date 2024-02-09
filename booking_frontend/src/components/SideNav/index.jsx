@@ -20,6 +20,9 @@ const SideNav = () => {
         <div className="list_item" onClick={() => navigate("MyFavourite")}>
           Favourite
         </div>
+        <div className="list_item" onClick={() => navigate("Analytics")}>
+          Analytics
+        </div>
       </div>
       <div className="out_let">
         <Outlet />

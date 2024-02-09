@@ -8,10 +8,12 @@ router.get("/", hotelsController.AllHotels);
 router.get("/find/:id", hotelsController.GetOneHotel);
 router.post(
   "/newhotel",
-  authController.authenticate,
+  //authController.authenticate,
   hotelsController.createNewHotel
 );
-router.put("/:id", authController.authenticate, hotelsController.updateHotel);
+router.put("/:id", 
+//authController.authenticate, 
+hotelsController.updateHotel);
 router.delete(
   "/:id",
   authController.authenticate,

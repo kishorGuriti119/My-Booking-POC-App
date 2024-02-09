@@ -8,6 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Bookings from "./Pages/Bookings";
 import Profile from "./Pages/Profile";
 import UserFavorites from "./components/User/UserFavorites";
+import Analytics from "./Pages/Analytics";
 // import { useState } from "react";
 // import { format } from "date-fns";
 // import { ToastContainer, toast } from "react-toastify";
@@ -24,6 +25,7 @@ function App() {
           <Route path="bookings" element={<Bookings />} />
           <Route path="" element={<Profile />} />
           <Route path="MyFavourite" element={<UserFavorites />} />
+          <Route path="Analytics" element={<Analytics />} />
         </Route>
         <Route path="*" element={<NoPage />} />
       </Routes>
