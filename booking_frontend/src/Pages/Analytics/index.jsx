@@ -165,7 +165,7 @@ const Analytics = () => {
                 marginTop: "24px",
               }}
             >
-              <span>compare with other cities</span>
+              <span>compare with other_cities</span>
               <Switch
                 onChange={(e) => setIsComparisonEnable(e.target.checked)}
               />

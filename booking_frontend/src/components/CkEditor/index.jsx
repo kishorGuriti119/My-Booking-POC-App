@@ -12,7 +12,7 @@ const MyEditor = () => {
 
   return (
     <div>
-      <h2>CKEditor</h2>
+      <h2>CKEditodd</h2>
       <CKEditor
         editor={ClassicEditor}
         data={editorData}

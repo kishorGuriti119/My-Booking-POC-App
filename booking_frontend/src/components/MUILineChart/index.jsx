@@ -4,7 +4,7 @@ import { LineChart } from "@mui/x-charts/LineChart";
 export default function SimpleLineChart({
   LineChartData,
   isComparisonEnable,
-  getPropertyCountInCity,
+  getPropertyCountInCity=()=>{},
 }) {
   const [propertyCountValues, setPropertyCountValues] = useState([]);
   const [xLabels, setXLabels] = useState([]);

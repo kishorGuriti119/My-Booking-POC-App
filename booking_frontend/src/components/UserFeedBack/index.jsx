@@ -44,7 +44,7 @@ export default function CustomizedDialogs({
   const [showImageUpload, setShowImageUplaod] = useState(false);
 
   const [userReview, setUserReview] = useState({
-    rating: 3,
+    rating: 3.5,
     review: "",
     images: [],
     staff: 4,

@@ -44,9 +44,9 @@ export default function HoverRating({ setUserReview, userReview }) {
           setValue(newValue);
           setUserReview((prev) => ({ ...prev, rating: newValue }));
         }}
-        onChangeActive={(event, newHover) => {
-          setHover(newHover);
-        }}
+        // onChangeActive={(event, newHover) => {
+        //   setHover(newHover);
+        // }}
         emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
       />
 
