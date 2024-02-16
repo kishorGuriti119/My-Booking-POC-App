@@ -36,7 +36,6 @@ const hotelsSchema = new Schema({
     min: 0,
     max: 5,
   },
-
   landmark: {
     type: String,
     required: true,

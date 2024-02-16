@@ -3,6 +3,7 @@ var router = express.Router();
 var hotelsController = require("../controllers/hotel");
 var authController = require("../controllers/auth");
 
+
 /* GET users listing. */
 router.get("/", hotelsController.AllHotels);
 router.get("/find/:id", hotelsController.GetOneHotel);

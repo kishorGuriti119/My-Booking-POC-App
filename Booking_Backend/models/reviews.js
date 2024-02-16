@@ -1,5 +1,4 @@
 var mongoose = require("mongoose");
-
 var { Schema } = mongoose;
 
 const ReviewSchema = new Schema({
