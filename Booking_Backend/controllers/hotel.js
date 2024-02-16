@@ -23,6 +23,10 @@ const createNewHotel = async function (req, res, next) {
 const updateHotel = async function (req, res, next) {
   let { id } = req.params;
   let body = req.body;
+  console.log(
+    body,
+    "body -------------------------------------------------------------------- 26"
+  );
 
   try {
     let updatedHotel = await HotelModel.findByIdAndUpdate(id, body, {
@@ -31,6 +35,30 @@ const updateHotel = async function (req, res, next) {
     return res.status(200).send(updatedHotel);
   } catch (err) {
     next(err); // this is the next middleware written in app.js file
+  }
+};
+
+const addReview = async (req, res, next) => {
+  let hotelid = req.params.hotelId;
+  console.log(hotelid, "65913a2df3a0b95e57e31728");
+  let body = req.body;
+  console.log(body);
+  try {
+    let hotel = await HotelModel.findByIdAndUpdate(
+      hotelid,
+
+      {
+        $push: { reviews: body },
+      },
+      {
+        new: true,
+      }
+    );
+    // await hotel.save();
+
+    return res.send(hotel);
+  } catch (error) {
+    return res.send(error);
   }
 };
 
@@ -203,6 +231,61 @@ const CountBytypeAndCity = async (req, res, next) => {
   }
 };
 
+const overAllcountBytypeAndCity = async (req, res, next) => {
+  let cities = new Set(req.query.cities.split(","));
+  cities = Array(...cities);
+  try {
+    let OverAll_Count_By_type_and_city_Array = [];
+
+    let OverAll_Count_By_type_and_city = await Promise.all(
+      cities.map(async (city) => {
+        let HotelTypeCount = await HotelModel.countDocuments({
+          type: "hotel",
+          city: city,
+        });
+        let ApartmentTypeCount = await HotelModel.countDocuments({
+          type: "apartment",
+          city: city,
+        });
+        let VillaTypeCount = await HotelModel.countDocuments({
+          type: "villa",
+          city: city,
+        });
+        let CabinTypeCount = await HotelModel.countDocuments({
+          type: "cabin",
+          city: city,
+        });
+        let ResortTypeCount = await HotelModel.countDocuments({
+          type: "resort",
+          city: city,
+        });
+
+        let Count_By_type_and_city_obj = {
+          city: city,
+          counts: [
+            { label: "Hotel", value: HotelTypeCount },
+            { label: "Apartments", value: ApartmentTypeCount },
+            { label: "Villa", value: VillaTypeCount },
+            { label: "Cabin", value: CabinTypeCount },
+            { label: "Resort", value: ResortTypeCount },
+          ],
+        };
+
+        OverAll_Count_By_type_and_city_Array.push(Count_By_type_and_city_obj);
+        // console.log(
+        //   OverAll_Count_By_type_and_city_Array,
+        //   "OverAll_Count_By_type_and_city_Array"
+        // );
+        return OverAll_Count_By_type_and_city_Array;
+      })
+    );
+
+    return res.send(OverAll_Count_By_type_and_city[0]);
+  } catch (err) {
+    return res.send(err);
+  }
+};
+
 // based on the city entered all the data should be returned and price should be added based on the cheapestprice+2000
 
 const addPrice = async (req, res, next) => {
@@ -309,4 +392,6 @@ module.exports = {
   updateAllHotels,
   BookedHotels,
   userBookedHotels,
+  overAllcountBytypeAndCity,
+  addReview,
 };

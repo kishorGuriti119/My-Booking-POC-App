@@ -5,6 +5,8 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 export default function CancelConfirmation(props) {
   console.log(props.triggeredBooking);
@@ -16,11 +18,24 @@ export default function CancelConfirmation(props) {
         onClose={props.handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        fullWidth={true}
       >
         <DialogTitle id="alert-dialog-title">
           {"Confirm Cancellation"}
         </DialogTitle>
-        <DialogContent>
+        <IconButton
+          aria-label="close"
+          onClick={props.handleClose}
+          sx={{
+            position: "absolute",
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+        <DialogContent dividers>
           <DialogContentText
             id="alert-dialog-description"
             marginBottom={"24px"}
@@ -47,10 +62,10 @@ export default function CancelConfirmation(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={props.cancellationConfirmed} sx={{ color: "Black" }}>
+          <Button onClick={props.cancellationConfirmed} sx={{ color: "Red" }}>
             Yes
           </Button>
-          <Button onClick={props.handleClose} autoFocus sx={{ color: "Black" }}>
+          <Button onClick={props.handleClose} autoFocus>
             No
           </Button>
         </DialogActions>

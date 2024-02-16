@@ -14,6 +14,7 @@ function CompletedBookings(props) {
   const [showMoreButton, setShowMoreButton] = useState(true);
   const [ShowAddReviewModel, setShowAddReviewModel] = useState(false);
   const [ShowLoading, setShowLoading] = useState(false);
+  const [triggeredReviewHotelObj, settriggeredReviewHotelObj] = useState();
   let loaderType = "spin";
   const navigatesTo = useNavigate();
 
@@ -93,8 +94,9 @@ function CompletedBookings(props) {
     navigatesTo(`/Booking.com`);
   };
 
-  const giveFeedback = (each) => {
+  const giveFeedback = (hotel) => {
     setShowAddReviewModel(true);
+    settriggeredReviewHotelObj({ ...hotel, userId: loginUser._id });
     // console.log(each, "clicked on feed back");
 
     // let bookingObj = {    ShowAddReviewModel
@@ -200,7 +202,7 @@ function CompletedBookings(props) {
                 <p> Looks like you haven't explored the world yet !</p>
                 <span>never is too late , you can start expolre now </span>
                 <p>
-                  Beautify world is waiting for you{" "}
+                  Beautiful world is waiting for you{" "}
                   <span
                     style={{
                       textDecoration: "underline",
@@ -232,7 +234,11 @@ function CompletedBookings(props) {
       )}
 
       {ShowAddReviewModel && (
-        <UserFeedBack ShowAddReviewModel={ShowAddReviewModel} />
+        <UserFeedBack
+          ShowAddReviewModel={ShowAddReviewModel}
+          setShowAddReviewModel={setShowAddReviewModel}
+          HotelData={triggeredReviewHotelObj}
+        />
       )}
     </>
   );

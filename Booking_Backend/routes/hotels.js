@@ -11,9 +11,11 @@ router.post(
   //authController.authenticate,
   hotelsController.createNewHotel
 );
-router.put("/:id", 
-//authController.authenticate, 
-hotelsController.updateHotel);
+router.put(
+  "/:id",
+  //authController.authenticate,
+  hotelsController.updateHotel
+);
 router.delete(
   "/:id",
   authController.authenticate,
@@ -27,4 +29,9 @@ router.put("/city/price", hotelsController.addPrice);
 router.put("/", hotelsController.updateAllHotels);
 router.get("/booked/list", hotelsController.BookedHotels);
 router.get("/user/booked", hotelsController.userBookedHotels);
+router.get(
+  "/OverAllcountbytypeandcity",
+  hotelsController.overAllcountBytypeAndCity
+);
+router.put("/review/:hotelId", hotelsController.addReview);
 module.exports = router;

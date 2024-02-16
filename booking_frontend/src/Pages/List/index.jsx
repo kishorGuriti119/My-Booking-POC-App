@@ -25,6 +25,8 @@ function List() {
   const searchDetails = useLocation();
 
   const [searchParams] = useSearchParams();
+  // const ciytname = searchParams.get("city");
+  // console.log(ciytname, "ciytname");
   let urlQueryObj = Object.fromEntries([...searchParams]);
   // console.log(Object.fromEntries([...searchParams]));--- gives all url queries
 
