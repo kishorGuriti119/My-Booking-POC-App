@@ -19,6 +19,7 @@ import { assetsIcons } from "../../common/utility";
 import { Avatar, Tooltip } from "@mui/material";
 import StyledRating from "../../components/StyledRating";
 import axios from "axios";
+import { notify } from "../../../../Booking_Backend/routes/hotels";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -73,6 +74,8 @@ export default function CustomizedDialogs({
         }
       );
       console.log(result, "66 userfeedback");
+      notify("Review Added", "succuss");
+      handleClose();
     } catch (error) {
       console.log(error);
     }
