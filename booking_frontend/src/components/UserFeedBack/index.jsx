@@ -19,7 +19,7 @@ import { assetsIcons } from "../../common/utility";
 import { Avatar, Tooltip } from "@mui/material";
 import StyledRating from "../../components/StyledRating";
 import axios from "axios";
-import { notify } from "../../../../Booking_Backend/routes/hotels";
+import notify from "../../components/ToastMessage";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
