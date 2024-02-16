@@ -237,7 +237,7 @@ const sendEmail = async (req, res, next) => {
     });
 
     var mailOptions = {
-      from: "kishorguriti119@gmail.com",
+      from: "Rajeshnasina123@gmail.com",
       to: "kishorguriti119@gmail.com",
       subject: "Booking Successful",
       text: "Email functionality checking",

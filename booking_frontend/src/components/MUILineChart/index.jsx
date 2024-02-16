@@ -1,70 +1,48 @@
 import React, { useEffect, useState } from "react";
 import { LineChart } from "@mui/x-charts/LineChart";
 
-// let obj = {
-//   city: "hydrabad",
-//   counts: [
-//     {
-//       label: "Hotel",
-//       value: 2,
-//     },
-//     {
-//       label: "Apartments",
-//       value: 2,
-//     },
-//     {
-//       label: "Villa",
-//       value: 2,
-//     },
-//     {
-//       label: "Cabin",
-//       value: 2,
-//     },
-//     {
-//       label: "Resort",
-//       value: 2,
-//     },
-//   ],
-// };
-
-export default function SimpleLineChart({ dataV }) {
+export default function SimpleLineChart({
+  LineChartData,
+  isComparisonEnable,
+  getPropertyCountInCity,
+}) {
   const [propertyCountValues, setPropertyCountValues] = useState([]);
   const [xLabels, setXLabels] = useState([]);
-  let y_axisValues = [];
-  let x_axisValues = [];
 
   useEffect(() => {
-    console.log(dataV, "dataV");
-    if (dataV && dataV[0] && dataV[0].counts) {
-      segregate_labes_countValues(dataV);
+    if (LineChartData && LineChartData.length > 0) {
+      segregateLabelsCountValues(LineChartData);
     }
-  }, [dataV]);
+  }, [LineChartData]);
 
-  const segregate_labes_countValues = async (dataV) => {
-    let result = await Promise.all(
-      dataV?.[0].counts?.map((propertyObj) => {
-        y_axisValues.push(propertyObj.value);
-        x_axisValues.push(propertyObj.label);
-        return [x_axisValues, y_axisValues];
-      })
-    );
-    setPropertyCountValues(result[0][1]);
-    setXLabels(result[0][0]);
+  const segregateLabelsCountValues = async (lineChartData) => {
+    let xLabels = [];
+    let propertyCountValues = [];
+
+    lineChartData.forEach((cityData) => {
+      let xValues = [];
+      let yValues = [];
+      cityData.counts.forEach((propertyObj) => {
+        xValues.push(propertyObj.label);
+        yValues.push(propertyObj.value);
+      });
+      xLabels.push(xValues);
+      propertyCountValues.push(yValues);
+    });
+
+    setXLabels(xLabels);
+    setPropertyCountValues(propertyCountValues);
   };
 
   return (
     <LineChart
       width={500}
       height={300}
-      series={[
-        {
-          data: propertyCountValues,
-          label: ` ${dataV[0]?.city.toUpperCase()}`,
-        },
-        // { data: uData, label: 'uv' },
-      ]}
-      xAxis={[{ scaleType: "point", data: xLabels }]}
+      series={propertyCountValues.map((values, index) => ({
+        data: values,
+        label: LineChartData[index].city.toUpperCase(),
+      }))}
+      xAxis={xLabels.map((labels) => ({ scaleType: "point", data: labels }))}
     />
-    // <h1>kk</h1>
   );
 }

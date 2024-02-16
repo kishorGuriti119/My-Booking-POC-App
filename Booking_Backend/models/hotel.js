@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 
 var { Schema } = mongoose;
+var ReviewSchema = require("../models/reviews");
 
 const hotelsSchema = new Schema({
   name: {
@@ -55,6 +56,7 @@ const hotelsSchema = new Schema({
   price: {
     type: Number,
   },
+  reviews: [ReviewSchema],
 });
 
 const HotelModel = mongoose.model("hotel", hotelsSchema);
