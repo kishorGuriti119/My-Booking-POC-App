@@ -6,6 +6,7 @@ import Login from "../Login";
 import { ToastContainer, Zoom, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./style.css";
+import Box from "@mui/material/Box";
 import { Button, Container, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Reserve from "../../components/Reserve";
@@ -20,6 +21,7 @@ import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import ReactLoading from "react-loading";
+import CarouselSlider from "../../components/CarouselSlider";
 
 function Hotel() {
   const { id, hotelname, hotelId } = useParams();
@@ -430,7 +432,17 @@ function Hotel() {
           hotelDetails={singleHotel}
         />
       )}
-
+      {singleHotel && singleHotel?.reviews?.length != 0 ? (
+        <Container className="p-1">
+          <Box sx={{ mt: 1, mb: 1, fontWeight: "bold" }}>
+            See what guests loved the most:
+          </Box>
+          <CarouselSlider
+            CarouselData={singleHotel.reviews}
+            
+          />
+        </Container>
+      ) : null}
       <Footer />
     </>
   );
