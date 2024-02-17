@@ -11,7 +11,7 @@ let RoomSchema = new Schema(
     description: { type: String, require: true },
     price: {
       type: Number,
-      require: true,  
+      require: true,
     },
     maxPeople: {
       type: Number,
@@ -22,7 +22,6 @@ let RoomSchema = new Schema(
 
   { timestamps: true }
 );
-
 
 const RoomsModel = mongoose.model("room", RoomSchema);
 
