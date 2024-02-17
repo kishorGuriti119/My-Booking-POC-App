@@ -53,7 +53,7 @@ const CarouselSlider = (props) => {
               borderRadius: "2px",
               padding: "12px",
               paddingBottom: "6px",
-              // boxShadow: "0 2px 8px 2px rgba(0, 0, 0, 0.16)",
+              //boxShadow: "0 2px 8px 2px rgba(0, 0, 0, 0.16)",
             }}
           >
             <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
