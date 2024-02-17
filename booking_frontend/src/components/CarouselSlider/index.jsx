@@ -56,25 +56,45 @@ const CarouselSlider = (props) => {
               //boxShadow: "0 2px 8px 2px rgba(0, 0, 0, 0.16)",
             }}
           >
-            <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
-              <Avatar
-                src={assetsIcons.user}
-                sx={{ width: 45, height: 45, borderRadius: "100px" }}
-              />
-              <Box>
-                <Typography sx={{ fontWeight: "bold" }}>
-                  {reviewObj?.reviewedBy?.username
-                    ? reviewObj?.reviewedBy?.username
-                    : "User"}
-                </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+                <Avatar
+                  src={assetsIcons.user}
+                  sx={{ width: 45, height: 45, borderRadius: "100px" }}
+                />
+                <Box>
+                  <Typography sx={{ fontWeight: "bold" }}>
+                    {reviewObj?.reviewedBy?.username
+                      ? reviewObj?.reviewedBy?.username
+                      : "User"}
+                  </Typography>
 
-                <Box sx={{ display: "flex", alignItems: "center" }}>
-                  <Avatar
-                    src={assetsIcons.indianflag}
-                    sx={{ width: 16, height: 16 }}
-                  />
-                  <Typography>India</Typography>
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <Avatar
+                      src={assetsIcons.indianflag}
+                      sx={{ width: 16, height: 16 }}
+                    />
+                    <Typography>India</Typography>
+                  </Box>
                 </Box>
+              </Box>
+              <Box
+                sx={{
+                  backgroundColor: "#003580",
+                  padding: 1,
+                  borderRadius: 1,
+                  color: "white",
+                  minWidth: 35,
+                  textAlign: "center",
+                }}
+              >
+                {reviewObj?.rating ? reviewObj?.rating : 2.5}
               </Box>
             </Box>
             <Box

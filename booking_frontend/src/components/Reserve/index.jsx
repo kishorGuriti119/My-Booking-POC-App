@@ -569,7 +569,7 @@ function Reserve({
                   onChange={(item) => setDate([item.selection])}
                   moveRangeOnFirstSelection={false}
                   ranges={date}
-                  minDate={new Date()}
+                  //minDate={new Date()}
                   style={{ width: "99%" }}
                 />
               </div>

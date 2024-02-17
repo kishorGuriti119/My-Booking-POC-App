@@ -26,7 +26,7 @@ const Analytics = () => {
       `http://localhost:3001/hotels/countbycity?cities=delhi,hydrabad,vizag`
     );
     setHotelCountInCityData(result.data);
-    //console.log(result.data, "pie_chart_data");
+    console.log(result.data, "pie_chart_data");
   };
 
   const getPropertyCountInCity = async () => {

@@ -67,7 +67,7 @@ export default function CustomizedDialogs({
         {
           ...userReview,
           reviewedBy: {
-            name: loginUser.username,
+            username: loginUser.username,
             userId: loginUser._id,
             email: loginUser.email,
           },

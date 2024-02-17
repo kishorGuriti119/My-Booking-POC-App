@@ -31,6 +31,9 @@ function List() {
   // console.log(Object.fromEntries([...searchParams]));--- gives all url queries
 
   const navigatesTo = useNavigate();
+  let today = new Date();
+  let nextDay = new Date(today);
+  nextDay.setDate(nextDay.getDate() + 1);
   const [showCalender, setShowCalender] = useState(false);
   const [destination, setDestination] = useState(
     searchDetails?.state?.destination
@@ -39,9 +42,9 @@ function List() {
   );
 
   let peopleFromUrl = {
-    adult: urlQueryObj.adult,
-    children: urlQueryObj.children,
-    rooms: urlQueryObj.rooms,
+    adult: urlQueryObj?.adult ?? 1,
+    children: urlQueryObj?.children ?? 1,
+    rooms: urlQueryObj?.rooms ?? 1,
   };
 
   const [people, setPeople] = useState(
@@ -64,9 +67,12 @@ function List() {
   const [date, setDate] = useState([
     {
       startDate:
-        searchDetails?.state?.date[0].startDate || new Date(urlQueryObj.from),
+        searchDetails?.state?.date[0].startDate ||
+        (urlQueryObj?.from ? new Date(urlQueryObj?.from) : new Date()),
       endDate:
-        searchDetails?.state?.date[0].endDate || new Date(urlQueryObj.to),
+        searchDetails?.state?.date[0].endDate ||
+        (urlQueryObj?.to ? new Date(urlQueryObj?.to) : new Date(nextDay)),
+
       key: "selection",
     },
   ]);
