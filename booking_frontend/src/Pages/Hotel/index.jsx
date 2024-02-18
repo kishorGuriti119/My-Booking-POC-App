@@ -39,6 +39,7 @@ function Hotel() {
   const [openLoginCom, setOpenLoginCom] = useState(false);
   const [modalShow, setModalShow] = React.useState(false);
   const [openResrv, setOpenResrv] = useState(false);
+  const [showViewReview, setShowViewReview] = useState(false);
 
   const navigate = useNavigate();
   let loaderType = "spinningBubbles";
@@ -435,14 +436,16 @@ function Hotel() {
       {singleHotel && singleHotel?.reviews?.length != 0 ? (
         <Container className="p-1">
           <Box sx={{ mt: 1, mb: 1, fontWeight: "bold" }}>
-            See what guests loved the most:
+            See what guests loved the most:{" "}
+            <span>
+              {" "}
+              {singleHotel?.reviews && singleHotel?.reviews?.length} reviews
+            </span>
           </Box>
-          <CarouselSlider
-            CarouselData={singleHotel.reviews}
-            
-          />
+          <CarouselSlider CarouselData={singleHotel.reviews} />
         </Container>
       ) : null}
+
       <Footer />
     </>
   );

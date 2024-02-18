@@ -45,6 +45,7 @@ export default function CustomizedDialogs({
   const [showImageUpload, setShowImageUplaod] = useState(false);
 
   const [userReview, setUserReview] = useState({
+    title: "",
     rating: 3.5,
     review: "",
     images: [],
@@ -153,7 +154,19 @@ export default function CustomizedDialogs({
           <Box>
             <TextField
               id="outlined-basic"
-              label="Review"
+              label="Review Title"
+              variant="outlined"
+              sx={{ mt: 3, width: "100%" }}
+              onChange={(e) =>
+                setUserReview((prev) => ({
+                  ...prev,
+                  title: e.target.value,
+                }))
+              }
+            />
+            <TextField
+              id="outlined-basic"
+              label="Description"
               variant="outlined"
               sx={{ mt: 3, width: "100%" }}
               onChange={(e) => [

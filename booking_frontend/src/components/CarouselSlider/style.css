@@ -80,20 +80,94 @@
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.16);
 }
 
-.review_comment_text_box {
-  display: -webkit-box;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
+
+
+@media (max-width: 768px) {
+  .review_comment_text_box {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
 }
+
+@media (min-width: 1020px) {
+  .review_comment_text_box {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+  }
+}
+
+/* @media (min-width: 1440px) {
+  .review_comment_text_box {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+  }
+} */
 
 @media screen and (min-width: 1732px) {
   .review_comment_text_box {
     display: -webkit-box;
     overflow: hidden;
     text-overflow: ellipsis;
-    -webkit-line-clamp: 6;
+    -webkit-line-clamp: 8;
     -webkit-box-orient: vertical;
   }
 }
+
+/* -----------------------------------------------------------------------  media query ------------------- */
+
+/* @media (max-width: 576px) {
+  .review_comment_text_box {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+}
+@media (min-width: 576px) and (max-width: 768px) {
+  .review_comment_text_box {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+}
+@media (min-width: 768px) and (max-width: 992px) {
+  .review_comment_text_box {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+}
+@media (min-width: 992px) and (max-width: 1200px) {
+  .review_comment_text_box {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+  }
+}
+@media (min-width: 1200px) {
+  .review_comment_text_box {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+   
+    background-color: red;
+  }
+} */

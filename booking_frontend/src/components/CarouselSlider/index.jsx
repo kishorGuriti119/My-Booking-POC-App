@@ -5,6 +5,8 @@ import Box from "@mui/material/Box";
 import { Avatar, Tooltip } from "@mui/material";
 import { assetsIcons } from "../../common/utility";
 import Link from "@mui/material/Link";
+import ViewReview from "../../components/ViewReview";
+import { useState } from "react";
 
 import "./style.css";
 
@@ -34,99 +36,110 @@ const responsive = {
 
 const CarouselSlider = (props) => {
   const { CarouselData = [] } = props;
+  const [showViewReview, setShowViewReview] = useState(false);
+  const [triggeredReview, setTriggeredReview] = useState(null);
 
   return (
-    <Carousel
-      responsive={responsive}
-      focusOnSelect={true}
-      autoPlay={props.deviceType !== "mobile" ? true : false}
-      style={{ marginLeft: "24px", marginRight: "24px" }}
-    >
-      {CarouselData.map((reviewObj) => {
-        return (
-          <Box
-            sx={{
-              // height: "25vh",
-              border: "1px solid #e7e7e7",
-              marginLeft: 1,
-              marginRight: 1,
-              borderRadius: "2px",
-              padding: "12px",
-              paddingBottom: "6px",
-              //boxShadow: "0 2px 8px 2px rgba(0, 0, 0, 0.16)",
-            }}
-          >
+    <>
+      <Carousel
+        responsive={responsive}
+        focusOnSelect={true}
+        //autoPlay={props.deviceType !== "mobile" ? true : false}
+        style={{ marginLeft: "24px", marginRight: "24px" }}
+      >
+        {CarouselData.map((reviewObj) => {
+          return (
             <Box
               sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
+                // height: "25vh",
+                border: "1px solid #e7e7e7",
+                marginLeft: 1,
+                marginRight: 1,
+                borderRadius: "2px",
+                padding: "12px",
+                paddingBottom: "6px",
+                //boxShadow: "0 2px 8px 2px rgba(0, 0, 0, 0.16)",
               }}
             >
-              <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
-                <Avatar
-                  src={assetsIcons.user}
-                  sx={{ width: 45, height: 45, borderRadius: "100px" }}
-                />
-                <Box>
-                  <Typography sx={{ fontWeight: "bold" }}>
-                    {reviewObj?.reviewedBy?.username
-                      ? reviewObj?.reviewedBy?.username
-                      : "User"}
-                  </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+                  <Avatar
+                    src={assetsIcons.user}
+                    sx={{ width: 45, height: 45, borderRadius: "100px" }}
+                  />
+                  <Box>
+                    <Typography sx={{ fontWeight: "bold" }}>
+                      {reviewObj?.reviewedBy?.username
+                        ? reviewObj?.reviewedBy?.username
+                        : "User"}
+                    </Typography>
 
-                  <Box sx={{ display: "flex", alignItems: "center" }}>
-                    <Avatar
-                      src={assetsIcons.indianflag}
-                      sx={{ width: 16, height: 16 }}
-                    />
-                    <Typography>India</Typography>
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <Avatar
+                        src={assetsIcons.indianflag}
+                        sx={{ width: 16, height: 16 }}
+                      />
+                      <Typography>India</Typography>
+                    </Box>
                   </Box>
+                </Box>
+                <Box
+                  sx={{
+                    backgroundColor: "#003580",
+                    padding: 1,
+                    borderRadius: 1,
+                    color: "white",
+                    minWidth: 35,
+                    textAlign: "center",
+                  }}
+                >
+                  {reviewObj?.rating ? reviewObj?.rating : 2.5}
                 </Box>
               </Box>
               <Box
+                className="review_comment_text_box"
                 sx={{
-                  backgroundColor: "#003580",
-                  padding: 1,
-                  borderRadius: 1,
-                  color: "white",
-                  minWidth: 35,
-                  textAlign: "center",
+                  marginTop: "12px",
+                  display: "-webkit-box",
                 }}
               >
-                {reviewObj?.rating ? reviewObj?.rating : 2.5}
+                <Typography
+                  sx={{
+                    fontWeight: "400",
+                    fontSize: "14px",
+                  }}
+                >
+                  {" "}
+                  {reviewObj.review}
+                </Typography>
               </Box>
-            </Box>
-            <Box
-              className="review_comment_text_box"
-              sx={{
-                marginTop: "12px",
-                display: "-webkit-box",
-
-                // textOverflow: "ellipsis",
-              }}
-            >
-              <Typography
-                sx={{
-                  fontWeight: "400",
-                  fontSize: "14px",
-                }}
+              <Link
+                underline="hover"
+                onClick={() => [
+                  setShowViewReview((prev) => !prev),
+                  setTriggeredReview(reviewObj),
+                ]}
               >
-                {" "}
-                {reviewObj.review}
-              </Typography>
+                Read more
+              </Link>
             </Box>
-            <Link
-              underline="hover"
-              // sx={{ marginTop: "24px" }}
-              onClick={() => alert(reviewObj.review)}
-            >
-              Read more
-            </Link>
-          </Box>
-        );
-      })}
-    </Carousel>
+          );
+        })}
+      </Carousel>
+      {showViewReview ? (
+        <ViewReview
+          reviewObj={triggeredReview}
+          isOpen={true}
+          setShowViewReview={setShowViewReview}
+        />
+      ) : null}
+    </>
   );
 };
 
