@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Button, Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
+import { useTranslation } from "react-i18next";
 import {
   faBed,
   faCalendarDays,
@@ -23,6 +24,7 @@ const Header = ({ type }) => {
   const [ShowCalender, setShowCalender] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   const [showDateInp, setShowDateInp] = useState(true);
+  const { t, i18n } = useTranslation();
 
   let today = new Date();
   let nextDay = new Date(today);
@@ -237,7 +239,8 @@ const Header = ({ type }) => {
             )}
             <div>
               <button className="search-btn" onClick={seeFulldetailsofHotel}>
-                Search
+                {/* Search */}
+                {t("Search")}
               </button>
             </div>
           </div>

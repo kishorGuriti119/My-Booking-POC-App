@@ -6,6 +6,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import "./style.css";
+import { useTranslation } from "react-i18next";
 import Login from "../../Pages/Login";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +15,7 @@ import { ToastContainer, Zoom, toast } from "react-toastify";
 function MyNavbar({ type }) {
   const [modalShow, setModalShow] = React.useState(false);
   const [dummyState, setDummyState] = useState("");
+  const { t, i18n } = useTranslation();
 
   let loginUser = JSON.parse(localStorage.getItem("loggedUser"));
 
@@ -93,7 +95,7 @@ function MyNavbar({ type }) {
           to="/Booking.com"
           style={{ color: "white", textDecoration: "none" }}
         >
-          Booking.com
+          Booking.com {t("Reviews")}
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
