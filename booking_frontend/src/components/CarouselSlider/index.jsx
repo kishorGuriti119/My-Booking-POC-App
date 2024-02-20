@@ -44,7 +44,7 @@ const CarouselSlider = (props) => {
       <Carousel
         responsive={responsive}
         focusOnSelect={true}
-        //autoPlay={props.deviceType !== "mobile" ? true : false}
+        autoPlay={props.deviceType !== "mobile" ? true : false}
         style={{ marginLeft: "24px", marginRight: "24px" }}
       >
         {CarouselData.map((reviewObj) => {
