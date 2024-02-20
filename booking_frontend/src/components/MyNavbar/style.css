@@ -1,12 +1,11 @@
 .mynav {
-    background-color: #003580;
-    height: 50px;
-    position: relative;
-
+  background-color: #003580;
+  height: 50px;
+  position: relative;
 }
 
 .navbar-nav .nav-link.active {
-    color: white !important;
+  color: white !important;
 }
 
 /* .user_account {

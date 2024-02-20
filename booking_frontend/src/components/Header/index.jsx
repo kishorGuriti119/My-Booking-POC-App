@@ -102,7 +102,10 @@ const Header = ({ type }) => {
               <h3 style={{ color: "white", marginTop: "25px" }}>
                 A lifetime of discounts? it's Genius
               </h3>
-              <p style={{ color: "white", marginTop: "24px" }}>
+              <p
+                style={{ color: "white", marginTop: "24px" }}
+                className="d-sm-none d-md-block"
+              >
                 Get rewarded for your-travels unlock instant savings of 10% or
                 more with a free Booking Account
               </p>

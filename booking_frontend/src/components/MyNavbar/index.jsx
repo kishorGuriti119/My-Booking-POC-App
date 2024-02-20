@@ -11,17 +11,22 @@ import Login from "../../Pages/Login";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, Zoom, toast } from "react-toastify";
+import { Avatar, Tooltip } from "@mui/material";
+import { assetsIcons } from "../../common/utility";
+import Box from "@mui/material/Box";
+import ProfileModel from "../../components/ProfileModel";
 
 function MyNavbar({ type }) {
   const [modalShow, setModalShow] = React.useState(false);
   const [dummyState, setDummyState] = useState("");
+  const [showTooltip, setShowTooltip] = useState(false);
   const { t, i18n } = useTranslation();
 
   let loginUser = JSON.parse(localStorage.getItem("loggedUser"));
 
   const navigate = useNavigate();
 
-  const gotouserpage = (user) => {
+  const gotoUserpage = (user) => {
     navigate(`/Booking.com/user/${user}/profile`);
   };
 
@@ -88,7 +93,10 @@ function MyNavbar({ type }) {
   };
 
   return (
-    <Navbar expand="sm" style={{ backgroundColor: "#003580" }}>
+    <Navbar
+      expand="sm"
+      style={{ backgroundColor: "#003580", position: "relative" }}
+    >
       <Container>
         <Navbar.Brand
           as={NavLink}
@@ -111,19 +119,44 @@ function MyNavbar({ type }) {
             </Nav>
           ) : (
             <Nav className="ms-auto">
-              <Nav.Link className="text-light ms-auto fw-bold">
-                {loginUser.username}
+              <Nav.Link
+                className="text-light ms-auto fw-bold"
+                // style={{ position: "relative" }}
+              >
+                <Box
+                  onMouseEnter={() => setShowTooltip(true)}
+                  // onMouseLeave={() => setShowTooltip(false)}
+                  className="user_Profile_NavLink"
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    // position: "relative",
+                  }}
+                >
+                  <Avatar
+                    src={assetsIcons.user}
+                    sx={{
+                      width: 22,
+                      height: 22,
+                      borderRadius: "100px",
+                      marginRight: 1,
+                    }}
+                  />
+                  {loginUser.username}
+                </Box>
               </Nav.Link>
+
+              {showTooltip && <ProfileModel setShowTooltip={setShowTooltip} />}
               {!type && (
                 <Nav.Link
-                  className="text-light ms-auto fw-bold"
-                  onClick={() => gotouserpage(loginUser.username)}
+                  className="text-light ms-auto fw-bold d-md-none"
+                  onClick={() => gotoUserpage(loginUser.username)}
                 >
                   Profile
                 </Nav.Link>
               )}
               <Nav.Link
-                className="text-light ms-auto fw-bold"
+                className="text-light ms-auto fw-bold d-md-none"
                 onClick={loggingOut}
               >
                 Logout
