@@ -60,4 +60,6 @@ export const Telugu_Translations = {
   "follow us": "అనుసరించండి",
   "Reserve or Book Now!": " బుక్ చేయండి",
   from: "నుండి",
+  Favourite: "ఇష్టమైన",
+  Analytics: "విశ్లేషణా",
 };
