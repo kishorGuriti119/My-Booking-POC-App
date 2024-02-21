@@ -9,7 +9,7 @@ import Bookings from "./Pages/Bookings";
 import Profile from "./Pages/Profile";
 import UserFavorites from "./components/User/UserFavorites";
 import Analytics from "./Pages/Analytics";
-import i18n from "./common/Lg_Translations/i18n"
+import i18n from "./common/Lg_Translations/i18n";
 import { I18nextProvider } from "react-i18next";
 // import { useState } from "react";
 // import { format } from "date-fns";
@@ -17,6 +17,9 @@ import { I18nextProvider } from "react-i18next";
 // import { DateContext } from "./Context/DateContext";
 
 function App() {
+  localStorage.removeItem("i18nextLng");
+  let userLanguage = localStorage.getItem("userLanguage");
+  localStorage.setItem("i18nextLng", userLanguage ? userLanguage : "en");
   return (
     <I18nextProvider i18n={i18n}>
       <BrowserRouter>

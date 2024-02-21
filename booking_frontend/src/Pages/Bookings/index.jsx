@@ -7,6 +7,7 @@ import { Button } from "react-bootstrap";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ReactLoading from "react-loading";
+import { useTranslation } from "react-i18next";
 import Loading from "react-loading";
 
 const Bookings = () => {
@@ -21,6 +22,7 @@ const Bookings = () => {
   const [selectedFav, setSelectedFav] = useState(false);
 
   let loginUser = JSON.parse(localStorage.getItem("loggedUser"));
+  const { t, i18n } = useTranslation();
 
   function onCompleted(status) {
     setSelectedTab(status);
@@ -116,7 +118,7 @@ const Bookings = () => {
           }
           onClick={() => onCompleted("completed")}
         >
-          completed
+          {t("completed")}
         </button>
         <button
           className={
@@ -126,7 +128,7 @@ const Bookings = () => {
           }
           onClick={() => onUpcoming("upcoming")}
         >
-          upcoming
+          {t("upcoming")}
         </button>
       </div>
 

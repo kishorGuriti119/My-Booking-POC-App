@@ -5,21 +5,23 @@ import "./style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function Footer() {
   const navigatesTo = useNavigate();
   const [showIcons, setShowIcons] = useState(false);
+  const { t, i18n } = useTranslation();
 
   return (
     <>
       <Container fluid className="footer-container mt-3">
-        <h2 style={{ color: "white" }}>Save time ,Save money</h2>
+        <h2 style={{ color: "white" }}>{t("Save time ,Save money")}</h2>
         <p style={{ color: "white", fontSize: "14px" }}>
-          sign up and we'll send the best deals to you
+          {t("sign up and we'll send the best deals to you")}
         </p>
         <div className="d-flex gap-2">
           <Form.Control type="email" placeholder="name@example.com" />
-          <Button>Subscribe</Button>
+          <Button>{t("Subscribe")}</Button>
         </div>
       </Container>
 
@@ -89,7 +91,7 @@ function Footer() {
 
       <Container className="text-center mb-4">
         <span className="follow" onClick={() => setShowIcons(!showIcons)}>
-          follow us
+          {t("follow us")}
           <div className="icons">
             <a href="https://www.instagram.com/" target="_blank">
               <svg
@@ -144,7 +146,6 @@ function Footer() {
             </a>
           </div>
         </span>
-        
       </Container>
     </>
   );

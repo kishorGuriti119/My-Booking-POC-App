@@ -81,8 +81,10 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import "./style.css";
 import MyCustomHook from "../../Hooks/hook";
+import { useTranslation } from "react-i18next";
 
 function PropertyList() {
+  const { t, i18n } = useTranslation();
   const { data, loading, error } = MyCustomHook(
     "http://localhost:3001/hotels/countbytype"
   );
@@ -99,9 +101,9 @@ function PropertyList() {
               />
             </div>
             <div className="d-flex justify-content-between mt-1">
-              <h5 className="property-name-style">Hotels</h5>
+              <h5 className="property-name-style">{t("Hotels")}</h5>
               <p>
-                {data.length > 0 ? data[0].hotelCount : "no data"} Properties
+                {data.length > 0 ? data[0].hotelCount : "0"} {t("Properties")}
               </p>
             </div>
           </Col>
@@ -113,10 +115,10 @@ function PropertyList() {
               />
             </div>
             <div className="d-flex justify-content-between mt-1">
-              <h5 className="property-name-style">Apartments</h5>
+              <h5 className="property-name-style">{t("Apartments")}</h5>
               <p>
-                {data.length > 0 ? data[0].apartmentCount : "no data"}
-                Properties
+                {data.length > 0 ? data[0].apartmentCount : "0"}{" "}
+                {t("Properties")}
               </p>
             </div>
           </Col>
@@ -128,9 +130,9 @@ function PropertyList() {
               />
             </div>
             <div className="d-flex justify-content-between mt-1">
-              <h5 className="property-name-style">Resorts</h5>
+              <h5 className="property-name-style">{t("Resorts")}</h5>
               <p>
-                {data.length > 0 ? data[0].resortCount : "no data"} Properties
+                {data.length > 0 ? data[0].resortCount : "0"} {t("Properties")}
               </p>
             </div>
           </Col>
@@ -142,10 +144,11 @@ function PropertyList() {
               />
             </div>
             <div className="d-flex justify-content-between mt-1">
-              <h5 className="property-name-style">Villas</h5>
+              <h5 className="property-name-style">{t("Villas")}</h5>
 
               <p>
-                {data.length > 0 ? data[0].villaCount : "no data"} Properties
+                {data.length > 0 ? data[0].villaCount : "0"}
+                {t("Properties")}
               </p>
             </div>
           </Col>
@@ -157,9 +160,9 @@ function PropertyList() {
               />
             </div>
             <div className="d-flex justify-content-between mt-1">
-              <h5 className="property-name-style">Cabins</h5>
+              <h5 className="property-name-style">{t("Cabins")}</h5>
               <p>
-                {data.length > 0 ? data[0].cabinCount : "no data"} Properties
+                {data.length > 0 ? data[0].cabinCount : "0"} {t("Properties")}
               </p>
             </div>
           </Col>
@@ -171,9 +174,9 @@ function PropertyList() {
               />
             </div>
             <div className="d-flex justify-content-between mt-1">
-              <h5 className="property-name-style">Cabins</h5>
+              <h5 className="property-name-style">{t("Cabins")}</h5>
               <p>
-                {data.length > 0 ? data[0].cabinCount : "no data"} Properties
+                {data.length > 0 ? data[0].cabinCount : "0"} {t("Properties")}
               </p>
             </div>
           </Col>

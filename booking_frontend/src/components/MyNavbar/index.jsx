@@ -103,7 +103,7 @@ function MyNavbar({ type }) {
           to="/Booking.com"
           style={{ color: "white", textDecoration: "none" }}
         >
-          Booking.com {t("Reviews")}
+          Booking.com
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -114,7 +114,7 @@ function MyNavbar({ type }) {
                 className="text-light fw-bold"
                 onClick={() => setModalShow(true)}
               >
-                Login/Register
+                {t("Login/Register")}
               </Nav.Link>
             </Nav>
           ) : (

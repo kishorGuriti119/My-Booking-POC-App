@@ -77,37 +77,38 @@ const Header = ({ type }) => {
         <Container className="d-flex justify-content-between">
           <div className="icon-wrapper">
             <FontAwesomeIcon icon={faBed} className="icon-style" />
-            <span className="icon-name"> Stays</span>
+            <span className="icon-name"> {t("Stays")}</span>
           </div>
           <div className="icon-wrapper">
             <FontAwesomeIcon icon={faPlane} className="icon-style" />
-            <span className="icon-name"> Flights</span>
+            <span className="icon-name"> {t("Flights")}</span>
           </div>
           <div className="icon-wrapper">
             <FontAwesomeIcon icon={faCar} className="icon-style" />
-            <span className="icon-name"> Car rentals</span>
+            <span className="icon-name"> {t("Car rentals")}</span>
           </div>
           <div className="icon-wrapper">
             <FontAwesomeIcon icon={faBed} className="icon-style" />
-            <span className="icon-name"> Attractions</span>
+            <span className="icon-name"> {t("Attractions")}</span>
           </div>
           <div className="icon-wrapper">
             <FontAwesomeIcon icon={faTaxi} className="icon-style" />
-            <span className="icon-name"> Airport taxis</span>
+            <span className="icon-name"> {t("Airport taxis")}</span>
           </div>
         </Container>
         {type !== "list" && (
           <>
             <Container>
               <h3 style={{ color: "white", marginTop: "25px" }}>
-                A lifetime of discounts? it's Genius
+                {t("A lifetime of discounts? it's Genius")}
               </h3>
               <p
                 style={{ color: "white", marginTop: "24px" }}
                 className="d-sm-none d-md-block"
               >
-                Get rewarded for your-travels unlock instant savings of 10% or
-                more with a free Booking Account
+                {t(
+                  "Get rewarded for your-travels unlock instant savings of 10% or more with a free Booking Account"
+                )}
               </p>
             </Container>
           </>

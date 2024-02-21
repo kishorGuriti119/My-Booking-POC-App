@@ -22,9 +22,11 @@ import axios from "axios";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import ReactLoading from "react-loading";
 import CarouselSlider from "../../components/CarouselSlider";
+import { useTranslation } from "react-i18next";
 
 function Hotel() {
   const { id, hotelname, hotelId } = useParams();
+  const { t, i18n } = useTranslation();
 
   const [searchParams] = useSearchParams();
   let urlQueryObj = Object.fromEntries([...searchParams]);
@@ -281,7 +283,7 @@ function Hotel() {
             <h1 className="hotel_name">{singleHotel.name}</h1>
             <FontAwesomeIcon icon={faLocationDot} />{" "}
             <span style={{ fontSize: "14px" }}>
-              500m from {singleHotel.landmark}
+              500m {t("from")} {singleHotel.landmark}
             </span>
             <p className="location_Des">
               Excellent location - 5OOm from center
@@ -292,7 +294,7 @@ function Hotel() {
           </div>
           <div>
             <button className="book_btn" onClick={onBookNow}>
-              Reserve or Book Now!
+              {t("Reserve or Book Now!")}
             </button>
           </div>
         </Container>
@@ -395,7 +397,7 @@ function Hotel() {
                   )}
                   )
                 </h4>
-                <button onClick={onBookNow}>Reserve or Book Now!</button>
+                <button onClick={onBookNow}>{t("Reserve or Book Now!")}</button>
               </div>
             </Col>
           </Row>
