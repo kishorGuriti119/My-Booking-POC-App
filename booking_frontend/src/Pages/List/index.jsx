@@ -18,11 +18,13 @@ import NoHotelsFound from "../../components/NoHotelsFound";
 import PaginationComponent from "../../components/Pagination";
 import PriceRange from "../../components/PriceRange";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 function List() {
   let loaderType = "spin";
 
   const searchDetails = useLocation();
+  const { t, i18n } = useTranslation();
 
   const [searchParams] = useSearchParams();
   // const ciytname = searchParams.get("city");
@@ -226,10 +228,10 @@ function List() {
           <Col sm={12} md={4} lg={3}>
             <Row>
               <Col sm={12} className="search_Container mt-4 ml-0 mr-0">
-                <h4>Search</h4>
+                <h4>{t("Search")}</h4>
                 <div>
                   <p style={{ margin: "2px", marginTop: "15px" }}>
-                    Destination
+                    {t("Destination")}
                   </p>
                   <input
                     style={{
@@ -245,7 +247,7 @@ function List() {
                 </div>
                 <div>
                   <p style={{ margin: "2px", marginTop: "15px" }}>
-                    check-in-Date
+                    {t("check-in-Date")}
                   </p>
                   <input
                     style={{
@@ -278,7 +280,7 @@ function List() {
                   />
                 )}
                 <div className="mt-4">
-                  <h6>options</h6>
+                  <h6>{t("options")}</h6>
                   <div className="options_Container">
                     {/* <div className="d-flex justify-content-between mt-3">
                       <p className="optionPara">
@@ -304,7 +306,7 @@ function List() {
                     </div> */}
                     <div className="mt-2">
                       <p className="optionPara">
-                        Min-Max Price (per night in 1000)
+                        {t("Min-Max Price (per night in ₹ 1000)")}
                       </p>
                       <div className="d-flex justify-content-between">
                         <span>₹ {priceRangeArray[0] * 1000}</span>{" "}
@@ -316,7 +318,7 @@ function List() {
                       />
                     </div>
                     <div className="d-flex justify-content-between mt-2">
-                      <p className="optionPara">Adult</p>
+                      <p className="optionPara">{t("Adult")}</p>
                       <input
                         type="number"
                         min={1}
@@ -329,7 +331,7 @@ function List() {
                       />
                     </div>
                     <div className="d-flex justify-content-between mt-2">
-                      <p className="optionPara">children</p>
+                      <p className="optionPara">{t("children")}</p>
                       <input
                         className="option_input"
                         placeholder={people.children}
@@ -340,7 +342,7 @@ function List() {
                       />
                     </div>
                     <div className="d-flex justify-content-between mt-2">
-                      <p className="optionPara">Room</p>
+                      <p className="optionPara">{t("Room")}</p>
                       <input
                         min={1}
                         type="number"
@@ -370,7 +372,7 @@ function List() {
                 <div className="mt-5">
                   <button className="input_searchBtn" onClick={onSearchClick}>
                     {!searchLoading ? (
-                      "Search"
+                      <span> {t("Search")}</span>
                     ) : (
                       <span className="mb-3">
                         <ReactLoading
@@ -457,12 +459,7 @@ function List() {
                                               <span
                                                 style={{ fontSize: "11px" }}
                                               >
-                                                This star rating is provided to
-                                                Booking.com by the property, and
-                                                is usually determined by an
-                                                official hotel rating
-                                                organisation or another third
-                                                party
+                                                {t("onHoverRating")}
                                               </span>
                                             </div>
                                           </span>
@@ -550,7 +547,7 @@ function List() {
                                         <p
                                           style={{
                                             color: "#00A400",
-                                            fontSize: "12px",
+                                            fontSize: "10px",
                                             fontWeight: "bold",
                                             marginBottom: "0px",
                                           }}
@@ -565,7 +562,7 @@ function List() {
                                           >
                                             <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
                                           </svg>{" "}
-                                          Free Cancellation
+                                          {t("Free Cancellation")}
                                         </p>
                                         {/* <span
                                         style={{
@@ -579,7 +576,7 @@ function List() {
                                           <span
                                             style={{
                                               color: "#00A400",
-                                              fontSize: "12px",
+                                              fontSize: "10px",
                                               fontWeight: "bold",
                                               marginBottom: "0px",
                                             }}
@@ -594,20 +591,20 @@ function List() {
                                             >
                                               <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
                                             </svg>
-                                            {"  "} No prepayment needed
+                                            {"  "} {t("No prepayment needed")}
                                           </span>
 
-                                          <span style={{ fontSize: "12px" }}>
+                                          <span style={{ fontSize: "10px" }}>
                                             {" "}
-                                            – pay at the property
+                                            – {t("pay at the property")}
                                           </span>
                                         </p>
                                       </div>
                                       <div className="price_description">
                                         <p>
-                                          {daysDiff} night,{" "}
+                                          {daysDiff} {t("night")},{" "}
                                           {people.adult ? people.adult : 1}{" "}
-                                          adult
+                                          {t("adult")}
                                         </p>
                                         <p className="price_to_show">
                                           <span className="original_Price">
@@ -648,7 +645,7 @@ function List() {
                                           <div className="d-flex justify-content-between">
                                             <p>
                                               ₹ {eachHotel.price} x {daysDiff}{" "}
-                                              night
+                                              {t("night")}
                                             </p>
 
                                             <p>
@@ -660,7 +657,7 @@ function List() {
                                           </div>
 
                                           <div className="d-flex justify-content-between">
-                                            <p>Bonus savings</p>
+                                            <p>{t("Bonus savings")}</p>
                                             <p>
                                               - ₹{" "}
                                               {savingAmount(
@@ -671,9 +668,7 @@ function List() {
                                             </p>
                                           </div>
                                           <p className="price_hover_card_description">
-                                            You’re getting a reduced rate
-                                            because this property is offering a
-                                            discount.
+                                            {t("whyDiscoutnText")}
                                           </p>
                                           <div className="d-flex justify-content-between">
                                             <p>GST 5%</p>
@@ -693,7 +688,7 @@ function List() {
                                           <hr style={{ borderWidth: "2px" }} />
                                           <div className="d-flex justify-content-between">
                                             <p>
-                                              <b>Total</b>
+                                              <b>{t("Total")}</b>
                                             </p>
                                             <p>
                                               <b>
@@ -715,7 +710,7 @@ function List() {
                                             )}
                                           </span>{" "}
                                           <span className="tax-text">
-                                            taxes and charges
+                                            {t("taxes and charges")}
                                           </span>
                                         </p>
                                         <div>
@@ -741,7 +736,7 @@ function List() {
                                               )
                                             }
                                           >
-                                            see availability
+                                            {t("see availability")}
                                           </button>
                                         </div>
                                       </div>

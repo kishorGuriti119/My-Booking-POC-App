@@ -9,4 +9,5 @@ export const assetsIcons = {
   bookingsIcons: require("../../assets/briefcase.png"),
   logout: require("../../assets/logout.png"),
   manage_accoutns: require("../../assets/user-settings.png"),
+  language: require("../../assets/language.png"),
 };

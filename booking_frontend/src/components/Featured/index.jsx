@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "./style.css";
 
 const Featured = () => {
   const [hotelCountInCityData, setHotelCountInCityData] = useState([]);
   const navigatesTo = useNavigate();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     getCountByCity();
@@ -46,22 +48,28 @@ const Featured = () => {
       <Row>
         <Col sm={12} md={4} onClick={() => handleCityClick("delhi")}>
           <div className="card-style">
-            <h1 className="city-name">New Delhi</h1>
-            <p className="property-style">{getValue("delhi")} Properties</p>
+            <h1 className="city-name">{t("New Delhi")}</h1>
+            <p className="property-style">
+              {getValue("delhi")} {t("Properties")}
+            </p>
           </div>
         </Col>
 
         <Col sm={12} md={4} onClick={() => handleCityClick("vizag")}>
           <div className="card-style2">
-            <h1 className="city-name">Vishakapatnam</h1>
-            <p className="property-style">{getValue("vizag")} Properties</p>
+            <h1 className="city-name">{t("Visakhapatnam")}</h1>
+            <p className="property-style">
+              {getValue("vizag")} {t("Properties")}
+            </p>
           </div>
         </Col>
 
         <Col sm={12} md={4} onClick={() => handleCityClick("hydrabad")}>
           <div className="card-style3">
-            <h1 className="city-name">Hyderabad</h1>
-            <p className="property-style">{getValue("hydrabad")} Properties</p>
+            <h1 className="city-name">{t("Hyderabad")}</h1>
+            <p className="property-style">
+              {getValue("hydrabad")} {t("Properties")}
+            </p>
           </div>
         </Col>
       </Row>

@@ -31,6 +31,7 @@ export default function QuiltedImageList({ hotelData }) {
       variant="quilted"
       cols={4}
       rowHeight={121}
+
       //   onClick={() =>
       //     navigatesTo(
       //       `/Booking.com/hotel/${hotelData.name}/${
