@@ -26,9 +26,10 @@ import "./style.css";
 
 export default function SimpleDialogDemo({ setShowTooltip }) {
   let loginUser = JSON.parse(localStorage.getItem("loggedUser"));
+  const userLanguage = localStorage.getItem("userLanguage");
   const navigatesTo = useNavigate();
   //const [dummyState, setDummyState] = useState("");
-  const [language, setLanguage] = useState(null);
+  const [language, setLanguage] = useState(userLanguage ? userLanguage : null);
 
   const { t, i18n } = useTranslation();
 
@@ -119,30 +120,30 @@ export default function SimpleDialogDemo({ setShowTooltip }) {
       </Box>
       <Box className="profie_card_list_item">
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          <Avatar src={assetsIcons.language} sx={{ width: 16, height: 16 }} />
+          <Avatar src={assetsIcons.language} sx={{ width: 18, height: 18 }} />
 
           <InputLabel id="demo-select-small-label" sx={{ fontSize: "12px" }}>
             {t("language")}
           </InputLabel>
           <Select
-            sx={{ fontSize: "12px", height: "30px" }}
+            sx={{ fontSize: "12px", height: "30px", minWidth: "80px" }}
             id="demo-select-small"
             value={language}
             label="Language"
             onChange={handleChange}
-            // defaultValue="te"
+            defaultValue={userLanguage}
           >
             <MenuItem
               sx={{ fontSize: "12px" }}
               value={"en"}
-              disabled={language == "en"}
+              disabled={language === "en"}
             >
               {t("English")}
             </MenuItem>
             <MenuItem
               sx={{ fontSize: "12px" }}
               value={"te"}
-              disabled={language == "te"}
+              disabled={language === "te"}
             >
               {t("తెలుగు")}
             </MenuItem>
