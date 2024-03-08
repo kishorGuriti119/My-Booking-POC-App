@@ -13,6 +13,7 @@ router.post("/login", userController.UserLogin);
 router.post("/authentication", authController.authenticate);
 router.get("/:id/bookings/completed", userController.getCompletedBookings);
 router.get("/:id/bookings/upcoming", userController.getUpComingBookings);
+router.put("/update/:id/uploadProfile" , userController.uploadprofileimage)
 
 // router.put(
 //   "/update/:id",

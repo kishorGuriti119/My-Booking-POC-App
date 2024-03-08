@@ -311,13 +311,29 @@ const getUpComingBookings = async (req, res, next) => {
       })
     );
 
-  UpComingBookings = UpComingBookings.filter(
-      (booking) => booking !== null
-    );
+    UpComingBookings = UpComingBookings.filter((booking) => booking !== null);
     return res.send(UpComingBookings);
   } catch (err) {
     return next();
   }
+};
+
+const uploadprofileimage = async (req, res, next) => {
+  let body = req.body;
+  let userId = req.params.id;
+
+  try {
+    let user = await userModel.findById(userId);
+    if (user) {
+      let user = await userModel.findByIdAndUpdate(userId, body, { new: true });
+      return res.send(user);
+    }
+    next("usernot found");
+  } catch (err) {
+    next(err);
+  }
+
+  return res.send(req.body);
 };
 
 module.exports = {
@@ -331,4 +347,5 @@ module.exports = {
   updatefavHotelId,
   getCompletedBookings,
   getUpComingBookings,
+  uploadprofileimage,
 };

@@ -62,4 +62,9 @@ export const Telugu_Translations = {
   from: "నుండి",
   Favourite: "ఇష్టమైన",
   Analytics: "విశ్లేషణా",
+  Next: "కొనసాగించండి",
+  "Save and Continue": "సేవ్ చేసి కొనసాగించండి",
+  Finish: "సేవ్",
+  Back: "వెనుకకు",
+  Edit: "సవరించు",
 };
