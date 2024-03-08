@@ -153,7 +153,7 @@ export default function SimpleDialogDemo({ setShowTooltip }) {
       <Box className="profie_card_list_item mb-2" onClick={loggingOut}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           <Avatar src={assetsIcons.logout} sx={{ width: 16, height: 16 }} />
-          <Typography>{"Sign out"}</Typography>
+          <Typography>{t("Sign out")}</Typography>
         </Box>
       </Box>
     </Box>

@@ -134,7 +134,11 @@ function MyNavbar({ type }) {
                   }}
                 >
                   <Avatar
-                    src={assetsIcons.user}
+                    src={
+                      loginUser?.profileImage
+                        ? loginUser?.profileImage
+                        : assetsIcons.user
+                    }
                     sx={{
                       width: 22,
                       height: 22,
