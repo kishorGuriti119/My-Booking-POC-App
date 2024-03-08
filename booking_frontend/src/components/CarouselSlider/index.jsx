@@ -36,8 +36,10 @@ const responsive = {
 
 const CarouselSlider = (props) => {
   const { CarouselData = [] } = props;
+  console.log(CarouselData);
   const [showViewReview, setShowViewReview] = useState(false);
   const [triggeredReview, setTriggeredReview] = useState(null);
+  let loginUser = JSON.parse(localStorage.getItem("loggedUser"));
 
   return (
     <>
@@ -70,7 +72,11 @@ const CarouselSlider = (props) => {
               >
                 <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
                   <Avatar
-                    src={assetsIcons.user}
+                    src={
+                      reviewObj?.reviewedBy?.profileImage
+                        ? reviewObj?.reviewedBy?.profileImage
+                        : assetsIcons.user
+                    }
                     sx={{ width: 45, height: 45, borderRadius: "100px" }}
                   />
                   <Box>

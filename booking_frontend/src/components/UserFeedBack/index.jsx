@@ -68,9 +68,10 @@ export default function CustomizedDialogs({
         {
           ...userReview,
           reviewedBy: {
-            username: loginUser.username,
-            userId: loginUser._id,
-            email: loginUser.email,
+            username: loginUser?.username,
+            userId: loginUser?._id,
+            email: loginUser?.email,
+            profileImage: loginUser?.profileImage,
           },
         }
       );

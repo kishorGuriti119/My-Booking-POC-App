@@ -30,6 +30,7 @@ export default function AlertDialogSlide({
     setOpen(false);
     setShowViewReview(false);
   };
+  let loginUser = JSON.parse(localStorage.getItem("loggedUser"));
 
   return (
     <React.Fragment>
@@ -65,7 +66,11 @@ export default function AlertDialogSlide({
           <Box sx={{ flex: 1 }}>
             <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
               <Avatar
-                src={assetsIcons.user}
+                src={
+                  reviewObj?.reviewedBy?.profileImage
+                    ? reviewObj?.reviewedBy?.profileImage
+                    : assetsIcons.user
+                }
                 sx={{ width: 45, height: 45, borderRadius: "100px" }}
               />
               <Box>
