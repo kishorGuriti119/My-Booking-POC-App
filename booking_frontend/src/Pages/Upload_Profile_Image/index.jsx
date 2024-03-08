@@ -45,11 +45,12 @@ const Upload_Profile_Image = ({ activeStep, setActiveStep, steps }) => {
         `http://localhost:3001/users/update/${loginUser?._id}/uploadProfile`,
         { profileImage: generatedCloudUrl }
       );
-      //console.log(updateUser, "updateUser");
       localStorage.removeItem("loggedUser");
       localStorage.setItem("loggedUser", JSON.stringify(updateUser.data));
       notify("Profile Pic Updated", "succuss");
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 3400);
     } catch (err) {
       console.log(err);
     }
